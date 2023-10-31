@@ -1,4 +1,13 @@
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
+
+import {
+  onAuthStateChangeListener,
+  createUserDocumentFromAuth,
+} from './utils/firebase'
+
+import { setCurrentUser } from './store/actions/userActions'
 
 import Home from './routes/home'
 import Layout from './components/layout'
@@ -11,6 +20,19 @@ import SignInForm from './components/signIn/signInForm'
 import SignUpForm from './components/signUp'
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangeListener(user => {
+      if (user) {
+        createUserDocumentFromAuth(user)
+      }
+      dispatch(setCurrentUser(user))
+    })
+
+    return unsubscribe
+  }, [])
+
   return (
     <Routes>
       <Route exact path="/" element={<Layout />}>
