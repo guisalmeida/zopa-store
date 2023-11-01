@@ -6,10 +6,6 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { store } from './store/store.js'
 
-import { ProductsProvider } from './context/productsContext.jsx'
-import { CartProvider } from './context/cartContext.jsx'
-import { SearchProvider } from './context/searchContext.jsx'
-
 import GlobalStyles from './styles/global'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -17,13 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <BrowserRouter>
         <GlobalStyles />
-        <ProductsProvider>
-          <CartProvider>
-            <SearchProvider>
-              <App />
-            </SearchProvider>
-          </CartProvider>
-        </ProductsProvider>
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

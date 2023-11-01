@@ -1,10 +1,13 @@
-import { useContext } from 'react'
 import PropTypes from 'prop-types'
+import { removeFromCart, addToCart } from '../../store/actions/cartActions'
+
 import { ListQuantityContainer } from './styled'
-import { CartContext } from '../../context/cartContext'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ListQuantity = ({ item }) => {
-  const { addToCart, removeFromCart } = useContext(CartContext)
+  const dispatch = useDispatch()
+  const cartProducts = useSelector(state => state.cart.cartProducts)
+
   return (
     <ListQuantityContainer>
       <button
@@ -12,7 +15,7 @@ const ListQuantity = ({ item }) => {
         className="quantity__button"
         onClick={() => {
           if (item.quantity <= 1) return
-          removeFromCart(item)
+          dispatch(removeFromCart(cartProducts, item))
         }}
       >
         <svg
@@ -35,7 +38,7 @@ const ListQuantity = ({ item }) => {
       <button
         type="button"
         className="quantity__button"
-        onClick={() => addToCart(item)}
+        onClick={() => dispatch(addToCart(cartProducts, item))}
       >
         <svg
           stroke="currentColor"

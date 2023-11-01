@@ -1,17 +1,21 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { ProductsContext } from '../../context/productsContext'
-import { CartContext } from '../../context/cartContext'
+
+import { setIsCartOpen, addToCart } from '../../store/actions/cartActions'
+import { selectAllProducts } from '../../store/selectors/productsSelectors'
 
 import Spinner from '../../components/spinner/spinner'
+
 import { ProductContainer } from './styled'
 
 const Product = () => {
-  const { addToCart, setIsCartOpen } = useContext(CartContext)
-  const { products } = useContext(ProductsContext)
+  const dispatch = useDispatch()
   const { category } = useParams()
+  const allProducts = useSelector(selectAllProducts)
+  const cartProducts = useSelector(state => state.cart.cartProducts)
 
-  const [prods, setProds] = useState(products)
+  const [prods, setProds] = useState(allProducts)
   const [selectedSize, setSelectedSize] = useState(null)
   const [sizeError, setSizeError] = useState(false)
 
@@ -20,8 +24,8 @@ const Product = () => {
   const product = prods.find(product => product.code_color === productId)
 
   useEffect(() => {
-    setProds(products)
-  }, [category, products])
+    setProds(allProducts)
+  }, [category, allProducts])
 
   const handleSize = sku => {
     if (sku === selectedSize) {
@@ -38,8 +42,8 @@ const Product = () => {
       return setSizeError(true)
     }
 
-    setIsCartOpen(true)
-    addToCart(product)
+    dispatch(setIsCartOpen(true))
+    dispatch(addToCart(cartProducts, product))
     setSelectedSize(null)
   }
 

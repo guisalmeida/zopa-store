@@ -1,18 +1,19 @@
-import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { ProductsContext } from '../../context/productsContext'
+import { useSelector } from 'react-redux'
+
+import { selectAllProducts } from '../../store/selectors/productsSelectors'
 import ProductsList from '../../components/productsList'
 import Spinner from '../../components/spinner/spinner'
 
 const Products = () => {
   const { category } = useParams()
-  const { products } = useContext(ProductsContext)
+  const allProducts = useSelector(selectAllProducts)
   const isLoading = false
 
   return isLoading ? (
     <Spinner />
   ) : (
-    <ProductsList products={products} category={category} />
+    <ProductsList products={allProducts} category={category} />
   )
 }
 
