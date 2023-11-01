@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import { removeFromCart, addToCart } from '../../store/actions/cartActions'
+import { selectCartProducts } from '../../store/selectors/cartSelectors'
 
 import { ListQuantityContainer } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 
 const ListQuantity = ({ item }) => {
   const dispatch = useDispatch()
-  const cartProducts = useSelector(state => state.cart.cartProducts)
+  const cartProducts = useSelector(selectCartProducts)
 
   return (
     <ListQuantityContainer>

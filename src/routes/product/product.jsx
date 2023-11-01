@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import { setIsCartOpen, addToCart } from '../../store/actions/cartActions'
 import { selectAllProducts } from '../../store/selectors/productsSelectors'
+import { selectCartProducts } from '../../store/selectors/cartSelectors'
 
 import Spinner from '../../components/spinner/spinner'
 
@@ -13,7 +14,7 @@ const Product = () => {
   const dispatch = useDispatch()
   const { category } = useParams()
   const allProducts = useSelector(selectAllProducts)
-  const cartProducts = useSelector(state => state.cart.cartProducts)
+  const cartProducts = useSelector(selectCartProducts)
 
   const [prods, setProds] = useState(allProducts)
   const [selectedSize, setSelectedSize] = useState(null)
