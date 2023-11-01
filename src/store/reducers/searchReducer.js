@@ -3,7 +3,7 @@ const INITIAL_STATE = {
   searchProducts: [],
 }
 
-export const searchReducer = (state = INITIAL_STATE, action) => {
+export const searchReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action
 
   switch (type) {

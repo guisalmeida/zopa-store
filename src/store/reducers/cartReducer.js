@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   cartTotal: 0,
 }
 
-export const cartReducer = (state = INITIAL_STATE, action) => {
+export const cartReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action
 
   switch (type) {
