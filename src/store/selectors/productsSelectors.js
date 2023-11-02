@@ -6,3 +6,8 @@ export const selectAllProducts = createSelector(
   [selectProductsReducer],
   products => products.allProducts,
 )
+
+export const selectIsLoading = createSelector(
+  [selectProductsReducer],
+  products => products.isLoading,
+)

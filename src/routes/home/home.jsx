@@ -1,12 +1,15 @@
 import { useSelector } from 'react-redux'
-import { selectAllProducts } from '../../store/selectors/productsSelectors'
+import {
+  selectAllProducts,
+  selectIsLoading,
+} from '../../store/selectors/productsSelectors'
 import { Carousel } from '../../components/carousel/carousel'
 import ProductsList from '../../components/productsList'
 import Spinner from '../../components/spinner/spinner'
 
 const Home = () => {
   const products = useSelector(selectAllProducts)
-  const isLoading = false
+  const isLoading = useSelector(selectIsLoading)
 
   return (
     <>

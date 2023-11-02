@@ -2,14 +2,15 @@ import { compose, legacy_createStore, applyMiddleware } from 'redux'
 import { rootReducer } from './rootReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import thunk from 'redux-thunk'
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['user'],
+  whitelist: ['cart'],
 }
 
-const middleWares = []
+const middleWares = [thunk]
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

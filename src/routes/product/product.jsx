@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { setIsCartOpen, addToCart } from '../../store/actions/cartActions'
-import { selectAllProducts } from '../../store/selectors/productsSelectors'
+import {
+  selectAllProducts,
+  selectIsLoading,
+} from '../../store/selectors/productsSelectors'
 import { selectCartProducts } from '../../store/selectors/cartSelectors'
 
 import Spinner from '../../components/spinner/spinner'
@@ -13,6 +16,8 @@ import { ProductContainer } from './styled'
 const Product = () => {
   const dispatch = useDispatch()
   const { category } = useParams()
+
+  const isLoading = useSelector(selectIsLoading)
   const allProducts = useSelector(selectAllProducts)
   const cartProducts = useSelector(selectCartProducts)
 
@@ -20,7 +25,6 @@ const Product = () => {
   const [selectedSize, setSelectedSize] = useState(null)
   const [sizeError, setSizeError] = useState(false)
 
-  const isLoading = false
   const productId = window.location.pathname.split('/')[2]
   const product = prods.find(product => product.code_color === productId)
 
