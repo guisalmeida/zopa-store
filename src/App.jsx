@@ -5,9 +5,11 @@ import { Routes, Route } from 'react-router-dom'
 import {
   onAuthStateChangeListener,
   createUserDocumentFromAuth,
+  getProductsCollection,
 } from './utils/firebase'
 
 import { setCurrentUser } from './store/actions/userActions'
+import { setProducts } from './store/actions/productsActions'
 
 import Home from './routes/home'
 import Layout from './components/layout'
@@ -31,6 +33,15 @@ function App() {
     })
 
     return unsubscribe
+  }, [])
+
+  useEffect(() => {
+    const getProductsMap = async () => {
+      const productsMap = await getProductsCollection()
+      dispatch(setProducts(productsMap))
+    }
+
+    getProductsMap()
   }, [])
 
   return (

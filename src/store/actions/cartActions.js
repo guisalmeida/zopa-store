@@ -1,5 +1,3 @@
-import { priceToNumber } from '../../utils/currency'
-
 export const addToCart = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
     cartItem => cartItem.selectedSize === productToAdd.selectedSize,
@@ -51,20 +49,8 @@ export const setIsCartOpen = bool => ({
 })
 
 export const setCartProducts = newCartItems => {
-  const newCartTotal = newCartItems.reduce((total, cartItem) => {
-    return total + priceToNumber(cartItem.actual_price) * cartItem.quantity
-  }, 0)
-
-  const newCartCount = newCartItems.reduce((total, cartItem) => {
-    return (total += cartItem.quantity)
-  }, 0)
-
   return {
     type: 'SET_CART_PRODUCTS',
-    payload: {
-      cartCount: newCartCount,
-      cartTotal: newCartTotal,
-      cartProducts: newCartItems,
-    },
+    payload: newCartItems,
   }
 }

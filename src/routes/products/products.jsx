@@ -7,6 +7,7 @@ import Spinner from '../../components/spinner/spinner'
 
 const Products = () => {
   const { category } = useParams()
+
   const allProducts = useSelector(selectAllProducts)
   const isLoading = false
 

@@ -1,8 +1,6 @@
 const INITIAL_STATE = {
   cartProducts: [],
   isCartOpen: false,
-  cartCount: 0,
-  cartTotal: 0,
 }
 
 export const cartReducer = (state = INITIAL_STATE, action = {}) => {
@@ -12,7 +10,7 @@ export const cartReducer = (state = INITIAL_STATE, action = {}) => {
     case 'SET_CART_PRODUCTS':
       return {
         ...state,
-        ...payload,
+        cartProducts: payload,
       }
     case 'SET_IS_CART_OPEN':
       return {

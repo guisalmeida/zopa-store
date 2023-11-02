@@ -2,6 +2,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { setIsCartOpen } from '../../store/actions/cartActions'
+import {
+  selectCartCount,
+  selectIsCartOpen,
+  selectCartProducts,
+} from '../../store/selectors/cartSelectors'
 
 import Slider from '../slider'
 import Button from '../button'
@@ -11,9 +16,10 @@ import { CartEmpty } from './styled'
 
 const MiniCart = () => {
   const dispatch = useDispatch()
-  const { cartProducts, cartCount, isCartOpen } = useSelector(
-    state => state.cart,
-  )
+
+  const cartProducts = useSelector(selectCartProducts)
+  const cartCount = useSelector(selectCartCount)
+  const isCartOpen = useSelector(selectIsCartOpen)
 
   const pathname = window.location.pathname || undefined
   const navigate = useNavigate()
