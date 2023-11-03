@@ -1,35 +1,23 @@
 import { useContext } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { signOutUser } from '../../utils/firebase'
-
-import { setIsMobileOpen } from '../../store/actions/userActions'
-import { setIsSearchOpen } from '../../store/actions/searchActions'
-import { setIsCartOpen } from '../../store/actions/cartActions'
-
-import { selectIsSearchOpen } from '../../store/selectors/searchSelectors'
-import { selectIsCartOpen } from '../../store/selectors/cartSelectors'
-import {
-  selectCurrentUser,
-  selectIsMobileOpen,
-} from '../../store/selectors/userSelectors'
-
+import CartIcon from '../cartIcon'
+import { UserContext } from '../../context/userContext'
+import { CartContext } from '../../context/cartContext'
+import { SearchContext } from '../../context/searchContext'
 import { ReactComponent as SearchIcon } from '../../assets/search-icon.svg'
 import { ReactComponent as ZopaLogo } from '../../assets/logo-zopa.svg'
-import CartIcon from '../cartIcon'
+import { signOutUser } from '../../utils/firebase'
 
 import { TopbarContainer, MenuMobileIcon } from './styled'
 
 const Topbar = () => {
-  const dispatch = useDispatch()
-  const currentUser = useSelector(selectCurrentUser)
-  const isMobileOpen = useSelector(selectIsMobileOpen)
-  const isSearchOpen = useSelector(selectIsSearchOpen)
-  const isCartOpen = useSelector(selectIsCartOpen)
+  const { currentUser, setIsMobileOpen, isMobileOpen } = useContext(UserContext)
+  const { isCartOpen, setIsCartOpen } = useContext(CartContext)
+  const { isSearchOpen, setIsSearchOpen } = useContext(SearchContext)
 
-  const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen))
-  const toggleIsSearchOpen = () => dispatch(setIsSearchOpen(!isSearchOpen))
-  const handleMobileMenu = () => dispatch(setIsMobileOpen(!isMobileOpen))
+  const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen)
+  const toggleIsSearchOpen = () => setIsSearchOpen(!isSearchOpen)
+  const handleMobileMenu = () => setIsMobileOpen(!isMobileOpen)
 
   return (
     <TopbarContainer>

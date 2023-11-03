@@ -1,22 +1,15 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { UserContext } from '../../context/userContext'
 import { signOutUser } from '../../utils/firebase'
-
-import { setIsMobileOpen } from '../../store/actions/userActions'
-import {
-  selectCurrentUser,
-  selectIsMobileOpen,
-} from '../../store/selectors/userSelectors'
 
 import { MenuContainer } from './styled'
 
 const MenuMobile = () => {
-  const dispatch = useDispatch()
-  const currentUser = useSelector(selectCurrentUser)
-  const isMobileOpen = useSelector(selectIsMobileOpen)
+  const { currentUser, setIsMobileOpen, isMobileOpen } = useContext(UserContext)
 
   const toggleMobileMenu = () => {
-    dispatch(setIsMobileOpen(false))
+    setIsMobileOpen(false)
   }
 
   return (

@@ -1,51 +1,41 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useContext, useState } from 'react'
 import { DebounceInput } from 'react-debounce-input'
-
-import {
-  setIsSearchOpen,
-  setSearchProducts,
-} from '../../store/actions/searchActions'
-import { selectAllProducts } from '../../store/selectors/productsSelectors'
-import {
-  selectIsSearchOpen,
-  selectSearchProducts,
-} from '../../store/selectors/searchSelectors'
+import { Link } from 'react-router-dom'
+import { ProductsContext } from '../../context/productsContext'
+import { SearchContext } from '../../context/searchContext'
+import { CartEmpty } from '../miniCart/styled'
 
 import ListItem from '../listItem'
+
 import Slider from '../slider'
 import Quantity from '../quantity'
-
-import { CartEmpty } from '../miniCart/styled'
 
 import * as Styled from './styled'
 
 const Search = () => {
-  const dispatch = useDispatch()
   const [query, setQuery] = useState('')
-  const allProducts = useSelector(selectAllProducts)
-  const searchProducts = useSelector(selectSearchProducts)
-  const isSearchOpen = useSelector(selectIsSearchOpen)
+  const { products } = useContext(ProductsContext)
+  const { searchProducts, setSearchProducts, isSearchOpen, setIsSearchOpen } =
+    useContext(SearchContext)
 
   const handleShowSearch = bool => {
+    setSearchProducts([])
     setQuery('')
-    dispatch(setSearchProducts([]))
-    dispatch(setIsSearchOpen(bool))
+    setIsSearchOpen(bool)
   }
 
   const handleSearch = event => {
     const searchQuery = event.target.value.trim().toLowerCase()
 
     if (searchQuery === '') {
-      return dispatch(setSearchProducts([]))
+      return setSearchProducts([])
     }
 
-    const result = allProducts.filter(({ name }) =>
+    const result = products.filter(({ name }) =>
       name.toLowerCase().includes(query),
     )
     setQuery(searchQuery)
-    dispatch(setSearchProducts(result))
+    setSearchProducts(result)
   }
 
   return (
