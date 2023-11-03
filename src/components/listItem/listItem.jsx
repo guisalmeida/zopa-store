@@ -72,11 +72,13 @@ const ListItem = ({ item, mode }) => {
 
 ListItem.propTypes = {
   item: PropTypes.shape({
-    // sizes: PropTypes.arrayOf({
-    //   available: PropTypes.bool.isRequired,
-    //   size: PropTypes.string.isRequired,
-    //   sku: PropTypes.string.isRequired,
-    // }),
+    sizes: PropTypes.arrayOf(
+      PropTypes.shape({
+        available: PropTypes.bool.isRequired,
+        size: PropTypes.string.isRequired,
+        sku: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     selectedSize: PropTypes.string,
@@ -84,7 +86,7 @@ ListItem.propTypes = {
     on_sale: PropTypes.bool.isRequired,
     regular_price: PropTypes.string.isRequired,
     actual_price: PropTypes.string.isRequired,
-    // installments: PropTypes.string.isRequired,
+    installments: PropTypes.string,
   }),
 }
 

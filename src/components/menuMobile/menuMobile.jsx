@@ -1,13 +1,19 @@
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { signOutUser } from '../../utils/firebase'
+
 import { setIsMobileOpen } from '../../store/actions/userActions'
+import {
+  selectCurrentUser,
+  selectIsMobileOpen,
+} from '../../store/selectors/userSelectors'
 
 import { MenuContainer } from './styled'
 
 const MenuMobile = () => {
   const dispatch = useDispatch()
-  const { currentUser, isMobileOpen } = useSelector(state => state.user)
+  const currentUser = useSelector(selectCurrentUser)
+  const isMobileOpen = useSelector(selectIsMobileOpen)
 
   const toggleMobileMenu = () => {
     dispatch(setIsMobileOpen(false))

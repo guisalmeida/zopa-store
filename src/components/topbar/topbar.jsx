@@ -6,8 +6,13 @@ import { signOutUser } from '../../utils/firebase'
 import { setIsMobileOpen } from '../../store/actions/userActions'
 import { setIsSearchOpen } from '../../store/actions/searchActions'
 import { setIsCartOpen } from '../../store/actions/cartActions'
+
 import { selectIsSearchOpen } from '../../store/selectors/searchSelectors'
 import { selectIsCartOpen } from '../../store/selectors/cartSelectors'
+import {
+  selectCurrentUser,
+  selectIsMobileOpen,
+} from '../../store/selectors/userSelectors'
 
 import { ReactComponent as SearchIcon } from '../../assets/search-icon.svg'
 import { ReactComponent as ZopaLogo } from '../../assets/logo-zopa.svg'
@@ -17,7 +22,8 @@ import { TopbarContainer, MenuMobileIcon } from './styled'
 
 const Topbar = () => {
   const dispatch = useDispatch()
-  const { currentUser, isMobileOpen } = useSelector(state => state.user)
+  const currentUser = useSelector(selectCurrentUser)
+  const isMobileOpen = useSelector(selectIsMobileOpen)
   const isSearchOpen = useSelector(selectIsSearchOpen)
   const isCartOpen = useSelector(selectIsCartOpen)
 

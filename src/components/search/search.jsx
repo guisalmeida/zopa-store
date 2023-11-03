@@ -8,6 +8,10 @@ import {
   setSearchProducts,
 } from '../../store/actions/searchActions'
 import { selectAllProducts } from '../../store/selectors/productsSelectors'
+import {
+  selectIsSearchOpen,
+  selectSearchProducts,
+} from '../../store/selectors/searchSelectors'
 
 import ListItem from '../listItem'
 import Slider from '../slider'
@@ -21,7 +25,8 @@ const Search = () => {
   const dispatch = useDispatch()
   const [query, setQuery] = useState('')
   const allProducts = useSelector(selectAllProducts)
-  const { searchProducts, isSearchOpen } = useSelector(state => state.search)
+  const searchProducts = useSelector(selectSearchProducts)
+  const isSearchOpen = useSelector(selectIsSearchOpen)
 
   const handleShowSearch = bool => {
     setQuery('')
