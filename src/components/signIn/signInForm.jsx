@@ -1,9 +1,10 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-} from '../../utils/firebase'
+  googleSignInstart,
+  emailSingInStart,
+} from '../../store/actions/userActions'
 
 import Button from '../button'
 import FormInput from '../formInput'
@@ -19,6 +20,7 @@ const defaultFormFields = {
 }
 
 const SignInForm = () => {
+  const dispatch = useDispatch()
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
@@ -27,7 +29,7 @@ const SignInForm = () => {
   }
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup()
+    dispatch(googleSignInstart())
   }
 
   const handleChange = event => {
@@ -39,8 +41,7 @@ const SignInForm = () => {
     event.preventDefault()
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password)
-
+      dispatch(emailSingInStart(email, password))
       resetForm()
     } catch (error) {
       switch (error.code) {

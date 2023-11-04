@@ -1,5 +1,8 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { signUpStart } from '../../store/actions/userActions'
+
 import Button from '../button'
 import FormInput from '../formInput'
 
@@ -22,6 +25,7 @@ const defaultFormFields = {
 }
 
 const SignUp = () => {
+  const dispatch = useDispatch()
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
 
@@ -40,8 +44,7 @@ const SignUp = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password)
-      await createUserDocumentFromAuth(user, { displayName })
+      dispatch(signUpStart(email, password, displayName))
 
       resetForm()
     } catch (error) {
