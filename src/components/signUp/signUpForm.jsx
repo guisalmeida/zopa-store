@@ -1,16 +1,10 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { signUpStart } from '../../store/actions/userActions'
+import { signUpStart, googleSignInstart } from '../../store/actions/userActions'
 
 import Button from '../button'
 import FormInput from '../formInput'
-
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-  signInWithGooglePopup,
-} from '../../utils/firebase'
 
 import {
   SignContainer,
@@ -61,7 +55,7 @@ const SignUp = () => {
   }
 
   const signUpWithGoogle = async () => {
-    await signInWithGooglePopup()
+    dispatch(googleSignInstart())
   }
 
   return (
