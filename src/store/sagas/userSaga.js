@@ -4,6 +4,8 @@ import {
   signInSuccess,
   signOutSuccess,
   signOutFailed,
+  signUpSuccess,
+  signUpFailed,
 } from '../actions/userActions'
 
 import {
@@ -73,7 +75,7 @@ export function* signUpWithEmail({
       email,
       password,
     )
-    put(signUpSuccess(user, { displayName }))
+    yield put(signUpSuccess(user, { displayName }))
   } catch (error) {
     yield put(signUpFailed(error))
   }
