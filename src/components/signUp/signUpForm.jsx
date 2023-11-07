@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import { signUpStart, googleSignInstart } from '../../store/actions/userActions'
+import { selectCurrentUser } from '../../store/selectors/userSelectors'
 
 import Button from '../button'
 import FormInput from '../formInput'
@@ -20,12 +21,18 @@ const defaultFormFields = {
 
 const SignUp = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
+  const currentUser = useSelector(selectCurrentUser)
 
   const handleChange = event => {
     const { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
+  }
+
+  const resetForm = () => {
+    setFormFields(defaultFormFields)
   }
 
   const handleSubmit = async event => {
@@ -37,26 +44,19 @@ const SignUp = () => {
       return
     }
 
-    try {
-      dispatch(signUpStart(email, password, displayName))
-
-      resetForm()
-    } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        // TODO implement toastfy instead alert
-        alert('Email already in use!!')
-      }
-      console.error(error)
-    }
-  }
-
-  const resetForm = () => {
-    setFormFields(defaultFormFields)
+    dispatch(signUpStart(email, password, displayName))
+    resetForm()
   }
 
   const signUpWithGoogle = async () => {
     dispatch(googleSignInstart())
   }
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/')
+    }
+  }, [currentUser])
 
   return (
     <SignContainer>
