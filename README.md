@@ -2,6 +2,11 @@
 
 https://zopa-clothing.netlify.app/
 
+### Firebase config
+
+> To add a domain just go to build > authentication > authorized domains > add
+> domain
+
 ## Tools
 
 - [React reselect](https://github.com/reduxjs/reselect#installation)
