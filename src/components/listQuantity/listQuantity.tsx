@@ -1,12 +1,12 @@
 import { removeFromCart, addToCart } from '../../store/actions/cartActions'
 import { selectCartProducts } from '../../store/selectors/cartSelectors'
-import { Item } from '../listItem/listItem'
+import { TProduct } from '../../types'
 
 import { ListQuantityContainer } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 
 type ListQuantityProps = {
-  item: Item
+  item: TProduct
 }
 
 const ListQuantity = ({ item }: ListQuantityProps): React.JSX.Element => {

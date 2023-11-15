@@ -13,8 +13,8 @@ import Shop from './routes/shop'
 import Product from './routes/product'
 import Products from './routes/products'
 import Checkout from './routes/checkout'
-import SignInForm from './components/signIn/signInForm'
-import SignUpForm from './components/signUp'
+import SignInForm from './components/signInForm/signInForm'
+import SignUpForm from './components/signUpForm'
 
 function App() {
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ function App() {
 
   return (
     <Routes>
-      <Route exact path="/" element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="shop/*" element={<Shop />}>
           <Route path=":category" element={<Products />} />

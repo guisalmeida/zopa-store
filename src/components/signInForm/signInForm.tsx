@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -36,12 +36,14 @@ const SignInForm = (): React.JSX.Element => {
     dispatch(googleSignInstart())
   }
 
-  const handleChange = (event): void => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
   }
 
-  const handleSubmit = async (event): Promise<void> => {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     event.preventDefault()
 
     dispatch(emailSingInStart(email, password))

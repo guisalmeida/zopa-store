@@ -25,11 +25,10 @@ const Topbar = (): React.JSX.Element => {
   const isSearchOpen = useSelector(selectIsSearchOpen)
   const isCartOpen = useSelector(selectIsCartOpen)
 
-  const toggleIsCartOpen = (): void => dispatch(setIsCartOpen(!isCartOpen))
-  const toggleIsSearchOpen = (): void =>
-    dispatch(setIsSearchOpen(!isSearchOpen))
-  const handleMobileMenu = (): void => dispatch(setIsMobileOpen(!isMobileOpen))
-  const signOutUser = (): void => dispatch(signOutStart())
+  const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen))
+  const toggleIsSearchOpen = () => dispatch(setIsSearchOpen(!isSearchOpen))
+  const handleMobileMenu = () => dispatch(setIsMobileOpen(!isMobileOpen))
+  const signOutUser = () => dispatch(signOutStart())
 
   return (
     <TopbarContainer>

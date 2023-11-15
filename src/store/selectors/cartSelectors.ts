@@ -1,7 +1,9 @@
 import { createSelector } from 'reselect'
 import { priceToNumber } from '../../utils/currency'
+import { TCartState } from '../reducers/cartReducer'
+import { TRootState } from '../store'
 
-const selectCartReducer = state => state.cart
+const selectCartReducer = (state: TRootState): TCartState => state.cart
 
 export const selectCartProducts = createSelector(
   [selectCartReducer],

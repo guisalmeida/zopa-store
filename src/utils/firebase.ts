@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  User,
+  NextOrObserver,
 } from 'firebase/auth'
 
 import {
@@ -18,7 +20,9 @@ import {
   writeBatch,
   query,
   getDocs,
+  QueryDocumentSnapshot,
 } from 'firebase/firestore'
+import { TProduct } from '../types'
 
 // App's Firebase configuration
 const firebaseConfig = {
@@ -28,6 +32,21 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_STORAGEBUCKET,
   messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
   appId: import.meta.env.VITE_APPID,
+}
+
+export type TAdditionalInfo = {
+  displayName?: string
+}
+
+export type TUserData = {
+  createdAt: Date
+  email: string
+  displayName: string
+}
+
+export type TObjectToAdd = {
+  title: string
+  code_color: string
 }
 
 // Initialize Firebase
@@ -44,18 +63,18 @@ export const db = getFirestore()
 
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 
-export const getProductsCollection = async () => {
+export const getProductsCollection = async (): Promise<TProduct[]> => {
   const collectionRef = collection(db, 'products')
   const q = query(collectionRef)
   const querySnapshot = await getDocs(q)
 
-  return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data() as TProduct)
 }
 
 export const createUserDocumentFromAuth = async (
-  userAuth,
-  additionalInfo = {},
-) => {
+  userAuth: User,
+  additionalInfo = {} as TAdditionalInfo,
+): Promise<void | QueryDocumentSnapshot<TUserData>> => {
   if (!userAuth) return
   const userDocRef = doc(db, 'users', userAuth.uid)
   const userSnapshot = await getDoc(userDocRef)
@@ -72,20 +91,26 @@ export const createUserDocumentFromAuth = async (
         ...additionalInfo,
       })
     } catch (error) {
-      console.log('Error creating the user!', error.message)
+      console.log('Error creating the user!', error)
     }
   }
 
-  return userSnapshot
+  return userSnapshot as QueryDocumentSnapshot<TUserData>
 }
 
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string,
+) => {
   if (!email || !password) return
 
   return await createUserWithEmailAndPassword(auth, email, password)
 }
 
-export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+export const signInAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string,
+) => {
   if (!email || !password) return
 
   return await signInWithEmailAndPassword(auth, email, password)
@@ -93,10 +118,10 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = async () => await signOut(auth)
 
-export const onAuthStateChangeListener = callback =>
+export const onAuthStateChangeListener = (callback: NextOrObserver<User>) =>
   onAuthStateChanged(auth, callback)
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<null | User> => {
   return new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(
       auth,
@@ -110,10 +135,10 @@ export const getCurrentUser = () => {
 }
 
 // Update database
-export const addCollectionsAndDocuments = async (
-  collectionKey,
-  objectsToAdd,
-) => {
+export const addCollectionsAndDocuments = async <T extends TObjectToAdd>(
+  collectionKey: string,
+  objectsToAdd: T[],
+): Promise<void> => {
   const collectionRef = collection(db, collectionKey)
 
   // Batch - Prevent lose data in the requests

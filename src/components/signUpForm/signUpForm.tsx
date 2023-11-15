@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { signUpStart, googleSignInstart } from '../../store/actions/userActions'
@@ -19,14 +19,14 @@ const defaultFormFields = {
   confirmPassword: '',
 }
 
-const SignUp = () => {
+const SignUpForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
   const currentUser = useSelector(selectCurrentUser)
 
-  const handleChange = (event): void => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target
     setFormFields({ ...formFields, [name]: value })
   }
@@ -35,7 +35,9 @@ const SignUp = () => {
     setFormFields(defaultFormFields)
   }
 
-  const handleSubmit = async (event): Promise<void> => {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     event.preventDefault()
 
     if (password !== confirmPassword) {
@@ -119,4 +121,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignUpForm

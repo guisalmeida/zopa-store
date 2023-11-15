@@ -3,8 +3,8 @@ import { TProduct } from '../../types'
 import { setIsSearchOpen, setSearchProducts } from '../actions/searchActions'
 
 export type TSearchState = {
-  isSearchOpen: boolean
-  searchProducts: TProduct[]
+  readonly isSearchOpen: boolean
+  readonly searchProducts: TProduct[]
 }
 
 const INITIAL_STATE: TSearchState = {
@@ -14,7 +14,7 @@ const INITIAL_STATE: TSearchState = {
 
 export const searchReducer = (
   state = INITIAL_STATE,
-  action = {} as AnyAction,
+  action: AnyAction,
 ): TSearchState => {
   if (setIsSearchOpen.match(action)) {
     return {

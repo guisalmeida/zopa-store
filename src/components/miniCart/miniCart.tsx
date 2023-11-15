@@ -25,7 +25,7 @@ const MiniCart = (): React.JSX.Element => {
 
   const pathname = window.location.pathname || undefined
 
-  const handleCheckout = (): void => {
+  const handleCheckout = () => {
     dispatch(setIsCartOpen(false))
     if (!currentUser) {
       navigate('auth/sign-in')
@@ -33,7 +33,8 @@ const MiniCart = (): React.JSX.Element => {
       navigate('checkout')
     }
   }
-  const handleShowCart = (bool: boolean): void => dispatch(setIsCartOpen(bool))
+
+  const handleShowCart = (bool: boolean) => dispatch(setIsCartOpen(bool))
 
   return (
     <Slider

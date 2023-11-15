@@ -7,7 +7,7 @@ import 'swiper/css/effect-fade'
 
 import { CarouselContainer } from './styled'
 
-export const Carousel = (): React.JSX.Element => {
+const Carousel = (): React.JSX.Element => {
   const photos = [
     './images/carousel1.JPG',
     './images/carousel2.JPG',
@@ -33,3 +33,5 @@ export const Carousel = (): React.JSX.Element => {
     </CarouselContainer>
   )
 }
+
+export default Carousel

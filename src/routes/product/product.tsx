@@ -14,9 +14,15 @@ import Spinner from '../../components/spinner/spinner'
 import { ProductContainer } from './styled'
 import { TProduct } from '../../types'
 
+type TProductRouteParams = {
+  category: string
+}
+
 const Product = () => {
   const dispatch = useDispatch()
-  const { category } = useParams()
+  const { category } = useParams<
+    keyof TProductRouteParams
+  >() as TProductRouteParams
 
   const isLoading: boolean = useSelector(selectIsLoading)
   const allProducts: TProduct[] = useSelector(selectAllProducts)
@@ -38,12 +44,13 @@ const Product = () => {
       setSelectedSize('')
       return
     }
-    product.selectedSize = sku
+    product ? (product.selectedSize = sku) : ''
     setSelectedSize(sku)
     setSizeError(false)
   }
 
   const handleAddToCart = (): void => {
+    if (!product) return
     if (!selectedSize) {
       return setSizeError(true)
     }

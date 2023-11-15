@@ -5,10 +5,16 @@ import { selectAllProducts } from '../../store/selectors/productsSelectors'
 import { ProductsCategories } from './styled'
 import { TProduct } from '../../types'
 
+type TCategoriesBarRouteParams = {
+  category: string
+}
+
 const CategoriesBar = (): React.JSX.Element => {
-  const { category } = useParams()
+  const { category } = useParams<
+    keyof TCategoriesBarRouteParams
+  >() as TCategoriesBarRouteParams
   const allProducts: TProduct[] = useSelector(selectAllProducts)
-  const categoriesSet = new Set()
+  const categoriesSet: Set<string> = new Set()
 
   allProducts.forEach(product => {
     product.categories.forEach(cat => categoriesSet.add(cat))
@@ -25,7 +31,7 @@ const CategoriesBar = (): React.JSX.Element => {
                 <Link
                   to={`${cat}`}
                   className={category === cat ? 'selected' : ''}
-                  style={cat === 'sale' ? { color: '#cf3838' } : null}
+                  style={cat === 'sale' ? { color: '#cf3838' } : undefined}
                 >
                   {cat}
                 </Link>

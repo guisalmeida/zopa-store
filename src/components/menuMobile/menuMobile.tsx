@@ -15,9 +15,7 @@ const MenuMobile = (): React.JSX.Element => {
   const currentUser = useSelector(selectCurrentUser)
   const isMobileOpen = useSelector(selectIsMobileOpen)
 
-  const toggleMobileMenu = (): void => {
-    dispatch(setIsMobileOpen(false))
-  }
+  const toggleMobileMenu = () => dispatch(setIsMobileOpen(false))
 
   return (
     <MenuContainer $show={isMobileOpen}>

@@ -9,8 +9,14 @@ import ProductsList from '../../components/productsList'
 import Spinner from '../../components/spinner/spinner'
 import { TProduct } from '../../types'
 
+type TProductsRouteParams = {
+  category: string
+}
+
 const Products = () => {
-  const { category } = useParams()
+  const { category } = useParams<
+    keyof TProductsRouteParams
+  >() as TProductsRouteParams
 
   const allProducts: TProduct[] = useSelector(selectAllProducts)
   const isLoading: boolean = useSelector(selectIsLoading)

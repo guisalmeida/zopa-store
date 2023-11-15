@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect'
+import { TProductsState } from '../reducers/productsReducer'
+import { TRootState } from '../store'
 
-const selectProductsReducer = state => state.products
+const selectProductsReducer = (state: TRootState): TProductsState =>
+  state.products
 
 export const selectAllProducts = createSelector(
   [selectProductsReducer],

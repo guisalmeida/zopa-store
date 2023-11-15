@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react'
 import {
   BaseButton,
   GoogleButton,
@@ -9,21 +10,22 @@ const BUTTON_TYPE_CLASSES = {
   base: BaseButton,
   google: GoogleButton,
   inverted: InvertedButton,
-}
+} as const
 
 type ButtonProps = {
   children: React.ReactNode
-  buttonType: string
-  isLoading: boolean
-}
+  buttonType?: keyof typeof BUTTON_TYPE_CLASSES
+  isLoading?: boolean
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
 const Button = ({
   children,
-  buttonType,
+  buttonType = 'base',
   isLoading = false,
   ...otherProps
-}: ButtonProps) => {
+}: ButtonProps): React.JSX.Element => {
   const CustomButton = BUTTON_TYPE_CLASSES[buttonType]
+
   return (
     <CustomButton disabled={isLoading} {...otherProps}>
       {isLoading ? <ButtonSpinner /> : children}

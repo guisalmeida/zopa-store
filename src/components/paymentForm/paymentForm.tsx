@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setCartProducts } from '../../store/actions/cartActions'
 import {
@@ -22,7 +22,7 @@ export const PaymentForm = (): React.JSX.Element => {
   const elements = useElements()
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
 
-  const paymentHandler = async event => {
+  const paymentHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!stripe || !elements) return
     setIsProcessingPayment(true)
@@ -34,7 +34,11 @@ export const PaymentForm = (): React.JSX.Element => {
         redirect: 'if_required',
       })
       .then(result => {
-        if (result.paymentIntent.status === 'succeeded') {
+        if (
+          result &&
+          result.paymentIntent &&
+          result.paymentIntent.status === 'succeeded'
+        ) {
           alert('Pagamento efetuado com sucesso!')
           dispatch(setCartProducts([]))
         } else if (result.error) {

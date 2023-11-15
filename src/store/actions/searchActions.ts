@@ -12,16 +12,12 @@ export type TSetSearchProducts = TActionWithPayload<
   TProduct[]
 >
 
-export type TSearchActions = TSetIsSearchOpen | TSetSearchProducts
-
 export const setIsSearchOpen = withMatcher(
-  (bool: boolean): TSetIsSearchOpen => {
-    return createAction(SEARCH_ACTION_TYPE.SET_IS_SEARCH_OPEN, bool)
-  },
+  (bool: boolean): TSetIsSearchOpen =>
+    createAction(SEARCH_ACTION_TYPE.SET_IS_SEARCH_OPEN, bool),
 )
 
 export const setSearchProducts = withMatcher(
-  (products: TProduct[]): TSetSearchProducts => {
-    return createAction(SEARCH_ACTION_TYPE.SET_SEARCH_PRODUCTS, products)
-  },
+  (products: TProduct[]): TSetSearchProducts =>
+    createAction(SEARCH_ACTION_TYPE.SET_SEARCH_PRODUCTS, products),
 )

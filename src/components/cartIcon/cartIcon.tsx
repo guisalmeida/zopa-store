@@ -8,7 +8,9 @@ const CartIcon = (): React.JSX.Element => {
 
   return (
     <>
-      {cartCount > 0 ? <CartIconCounter>{cartCount}</CartIconCounter> : null}
+      {typeof cartCount === 'number' && cartCount > 0 ? (
+        <CartIconCounter>{cartCount}</CartIconCounter>
+      ) : null}
       <CartIconSvg />
     </>
   )

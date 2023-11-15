@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { DebounceInput } from 'react-debounce-input'
@@ -29,13 +29,13 @@ const Search = (): React.JSX.Element => {
   const searchProducts: TProduct[] = useSelector(selectSearchProducts)
   const isSearchOpen: boolean = useSelector(selectIsSearchOpen)
 
-  const handleShowSearch = (bool: Boolean): void => {
+  const handleShowSearch = (bool: boolean) => {
     setQuery('')
     dispatch(setSearchProducts([]))
     dispatch(setIsSearchOpen(bool))
   }
 
-  const handleSearch = (event): void => {
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const searchQuery = event.target.value.trim().toLowerCase()
 
     if (searchQuery === '') {
@@ -62,7 +62,7 @@ const Search = (): React.JSX.Element => {
           className="search__input"
           placeholder="Digite nome do produto..."
           debounceTimeout={400}
-          onChange={event => handleSearch(event)}
+          onChange={handleSearch}
           value={query}
         />
       </Styled.SearchContainer>

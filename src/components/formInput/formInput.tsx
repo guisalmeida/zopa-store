@@ -1,12 +1,10 @@
+import { InputHTMLAttributes } from 'react'
 import { FormGroup, Input, FormLabel } from './styled'
 
 type FormInputProps = {
   label: string
   name: string
-  otherProps: {
-    value: string
-  }
-}
+} & InputHTMLAttributes<HTMLInputElement>
 
 const FormInput = ({
   label,

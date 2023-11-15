@@ -26,7 +26,9 @@ const ListItem = ({ item, mode }: ListItemProps): React.JSX.Element => {
   const handleDelete = () => dispatch(clearFromCart(cartProducts, item))
 
   const { size } = item.selectedSize
-    ? item.sizes.find(size => size.sku === item.selectedSize)
+    ? item.sizes.find(size => size.sku === item.selectedSize) || {
+        size: undefined,
+      }
     : { size: undefined }
 
   return (

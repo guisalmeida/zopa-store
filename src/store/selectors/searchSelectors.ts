@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect'
 import { TSearchState } from '../reducers/searchReducer'
+import { TRootState } from '../store'
 
-const selectSearchReducer = (state): TSearchState => state.search
+const selectSearchReducer = (state: TRootState): TSearchState => state.search
 
 export const selectIsSearchOpen = createSelector(
   [selectSearchReducer],

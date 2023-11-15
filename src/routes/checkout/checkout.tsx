@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { loadStripe } from '@stripe/stripe-js'
+import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
 import {
@@ -17,16 +17,16 @@ import { CheckoutContainer } from './styled'
 import { TProduct } from '../../types'
 
 const Checkout = (): React.JSX.Element => {
-  const [stripePromise, setStripePromise] = useState(false)
+  const [stripePromise, setStripePromise] = useState<Promise<Stripe | null>>()
   const [clientSecret, setClientSecret] = useState('')
 
   const cartProducts: TProduct[] = useSelector(selectCartProducts)
-  const cartTotal: number = useSelector(selectCartTotal)
-  const amount: number = Math.round(cartTotal * 100)
+  const cartTotal = useSelector(selectCartTotal)
+  const amount = typeof cartTotal === 'number' ? Math.round(cartTotal * 100) : 0
 
-  const options = {
+  const options: StripeElementsOptions = {
     clientSecret,
-    locale: 'pt-br',
+    locale: 'pt-BR',
     appearance: {
       theme: 'flat',
       labels: 'floating',
@@ -63,7 +63,11 @@ const Checkout = (): React.JSX.Element => {
       {cartProducts.map((cartItem, index) => {
         return <ListItem key={index} item={cartItem} mode="cart" />
       })}
-      <p className="checkout__total">Total: {priceToStringBr(cartTotal)}</p>
+
+      {typeof cartTotal === 'number' && (
+        <p className="checkout__total">Total: {priceToStringBr(cartTotal)}</p>
+      )}
+
       {stripePromise && clientSecret ? (
         <Elements stripe={stripePromise} options={options} key={clientSecret}>
           <PaymentForm />
