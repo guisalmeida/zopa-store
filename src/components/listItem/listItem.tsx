@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { clearFromCart } from '../../store/actions/cartActions'
 
-import { priceToNumber, priceToStringBr } from '../../utils/currency'
+import { priceToStringBr } from '../../utils/currency'
 import { selectCartProducts } from '../../store/selectors/cartSelectors'
 import { TProduct } from '../../types'
 
