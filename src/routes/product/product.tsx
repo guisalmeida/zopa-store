@@ -14,6 +14,7 @@ import Spinner from '../../components/spinner/spinner'
 import { ProductContainer } from './styled'
 import { TProduct, TSize } from '../../types'
 import { toast } from 'react-toastify'
+import { priceToStringBr } from '../../utils/currency'
 
 type TProductRouteParams = {
   category: string
@@ -34,19 +35,19 @@ const Product = () => {
   const [sizeError, setSizeError] = useState(false)
 
   const productId = window.location.pathname.split('/')[2]
-  const product = prods.find(product => product.code_color === productId)
+  const product = prods.find(product => product._id === productId)
 
   useEffect(() => {
     setProds(allProducts)
   }, [category, allProducts])
 
-  const handleSize = (sku: string): void => {
-    if (sku === selectedSize) {
+  const handleSize = (_id: string): void => {
+    if (_id === selectedSize) {
       setSelectedSize('')
       return
     }
-    product ? (product.selectedSize = sku) : ''
-    setSelectedSize(sku)
+    product ? (product.selectedSize = _id) : ''
+    setSelectedSize(_id)
     setSizeError(false)
   }
 
@@ -91,12 +92,14 @@ const Product = () => {
           <div className="product__content">
             <h3 className="product__name">{product?.name}</h3>
             <div className="product__pricing">
-              {product?.on_sale && (
+              {product?.onSale && (
                 <span className="product__price product__price--old">
-                  {product?.regular_price}
+                  {product && priceToStringBr(product.oldPrice)}
                 </span>
               )}
-              <span className="product__price">{product?.actual_price}</span>
+              <span className="product__price">
+                {product && priceToStringBr(product.price)}
+              </span>
               {/* <span className="product__price product__price--installments">
                 or {product?.installments}
               </span> */}
@@ -119,12 +122,12 @@ const Product = () => {
                         key={index}
                         type="button"
                         className={`product__filter ${
-                          selectedSize === productSize.sku
+                          selectedSize === productSize._id
                             ? 'product__filter--selected'
                             : ''
                         }`}
                         onClick={() => {
-                          handleSize(productSize.sku)
+                          handleSize(productSize._id)
                         }}
                       >
                         {productSize.size}
