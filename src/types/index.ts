@@ -1,20 +1,23 @@
-export type TProduct = {
-  image: string
-  images: string[]
-  name: string
-  code_color: string
-  on_sale: boolean
-  regular_price: string
-  actual_price: string
-  discount_percentage: string
-  categories: string[]
-  quantity: number
-  installments: string
+export type TSize = {
+  available: boolean
   size: string
+  _id: string
+}
+
+export type TProduct = {
+  name: string
+  images: string[]
+  _id: string
+  onSale: boolean
+  description: string
+  quantity: number
+  price: number
+  oldPrice: number
+  discount: number
+  categories: string[]
+  colors: string[]
+  size: TSize
   selectedSize: string
-  sizes: {
-    available: boolean
-    size: string
-    sku: string
-  }[]
+  sizes: TSize[]
+  inStock: boolean
 }

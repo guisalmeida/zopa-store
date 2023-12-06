@@ -12,7 +12,7 @@ import { selectCartProducts } from '../../store/selectors/cartSelectors'
 import Spinner from '../../components/spinner/spinner'
 
 import { ProductContainer } from './styled'
-import { TProduct } from '../../types'
+import { TProduct, TSize } from '../../types'
 import { toast } from 'react-toastify'
 
 type TProductRouteParams = {

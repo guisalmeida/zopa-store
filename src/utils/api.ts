@@ -1,10 +1,10 @@
-import { ProductType } from '../types'
+import { TProduct } from '../types'
 import axios from 'axios'
 
-export const geProductTypesCollection = async (
+export const getProductsCollection = async (
   category = '',
   limit = 0,
-): Promise<ProductType[] | void> => {
+): Promise<TProduct[] | void> => {
   const productsUrl = 'http://localhost:5000/api/products'
   const params: { category?: string; limit?: number } = {}
 
@@ -12,7 +12,7 @@ export const geProductTypesCollection = async (
   if (limit) params.limit = limit
 
   try {
-    const { data } = await axios.get<ProductType[]>(productsUrl, {
+    const { data } = await axios.get<TProduct[]>(productsUrl, {
       params,
     })
 
