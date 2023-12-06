@@ -1,6 +1,6 @@
 import { FirebaseError } from 'firebase/app'
 import { TProduct } from '../../types'
-import { createAction, withMatcher } from '../../utils/action'
+import { createAction, withMatcher } from '../../utils/actions'
 import {
   PRODUCTS_ACTION_TYPE,
   TAction,

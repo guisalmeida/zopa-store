@@ -1,5 +1,5 @@
 import { USER_ACTION_TYPE, TActionWithPayload, TAction } from './actionTypes'
-import { createAction, withMatcher } from '../../utils/action'
+import { createAction, withMatcher } from '../../utils/actions'
 import { TUserData } from '../../utils/firebase'
 import { User } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'

@@ -1,5 +1,5 @@
 import { TProduct } from '../../types'
-import { createAction, withMatcher } from '../../utils/action'
+import { createAction, withMatcher } from '../../utils/actions'
 import { CART_ACTION_TYPE, TActionWithPayload } from './actionTypes'
 
 export type TSetIsCartOpen = TActionWithPayload<
