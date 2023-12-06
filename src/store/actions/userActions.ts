@@ -3,6 +3,7 @@ import { createAction, withMatcher } from '../../utils/actions'
 import { TUserData } from '../../utils/firebase'
 import { User } from 'firebase/auth'
 import { FirebaseError } from 'firebase/app'
+import { TCurrentUser } from '../../types'
 
 export type TSetIsMobileOpen = TActionWithPayload<
   typeof USER_ACTION_TYPE.SET_IS_MOBILE_OPEN,
@@ -24,7 +25,7 @@ export type TEmailSingInStart = TActionWithPayload<
 
 export type TSignInSuccess = TActionWithPayload<
   typeof USER_ACTION_TYPE.SIGN_IN_SUCCESS,
-  TUserData
+  TCurrentUser
 >
 
 export type TSignInFailed = TActionWithPayload<
@@ -37,7 +38,7 @@ export type TSignUpStart = TActionWithPayload<
   {
     email: string
     password: string
-    displayName: string
+    username: string
   }
 >
 
@@ -79,7 +80,7 @@ export const emailSingInStart = withMatcher(
 )
 
 export const signInSuccess = withMatcher(
-  (user: TUserData & { id: string }): TSignInSuccess =>
+  (user: TCurrentUser): TSignInSuccess =>
     createAction(USER_ACTION_TYPE.SIGN_IN_SUCCESS, user),
 )
 
@@ -89,11 +90,11 @@ export const signInFailed = withMatcher(
 )
 
 export const signUpStart = withMatcher(
-  (email: string, password: string, displayName: string): TSignUpStart =>
+  (email: string, password: string, username: string): TSignUpStart =>
     createAction(USER_ACTION_TYPE.SIGN_UP_START, {
       email,
       password,
-      displayName,
+      username,
     }),
 )
 

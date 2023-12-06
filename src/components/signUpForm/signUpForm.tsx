@@ -15,7 +15,7 @@ import {
 } from '../../routes/authentication/styled'
 
 const defaultFormFields = {
-  displayName: '',
+  username: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -25,7 +25,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [formFields, setFormFields] = useState(defaultFormFields)
-  const { displayName, email, password, confirmPassword } = formFields
+  const { username, email, password, confirmPassword } = formFields
   const currentUser = useSelector(selectCurrentUser)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -53,7 +53,7 @@ const SignUpForm = () => {
       return
     }
 
-    dispatch(signUpStart(email, password, displayName))
+    dispatch(signUpStart(email, password, username))
     resetForm()
   }
 
@@ -78,8 +78,8 @@ const SignUpForm = () => {
         <FormInput
           label="Nome"
           type="text"
-          name="displayName"
-          value={displayName}
+          name="username"
+          value={username}
           placeholder="Digite seu nome..."
           onChange={handleChange}
           required

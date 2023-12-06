@@ -35,13 +35,13 @@ const firebaseConfig = {
 }
 
 export type TAdditionalInfo = {
-  displayName?: string
+  username?: string
 }
 
 export type TUserData = {
   createdAt: Date
   email: string
-  displayName: string
+  username: string
 }
 
 export type TObjectToAdd = {
@@ -80,12 +80,12 @@ export const createUserDocumentFromAuth = async (
   const userSnapshot = await getDoc(userDocRef)
 
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth
+    const { username, email } = userAuth
     const createdAt = new Date()
 
     try {
       await setDoc(userDocRef, {
-        displayName,
+        username,
         email,
         createdAt,
         ...additionalInfo,

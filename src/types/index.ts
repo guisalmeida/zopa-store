@@ -21,3 +21,14 @@ export type TProduct = {
   sizes: TSize[]
   inStock: boolean
 }
+
+export type TCurrentUser = {
+  _id: string
+  username: string
+  email: string
+  isAdmin: boolean
+  passwordChangedAt?: Date
+  createdAt: Date
+  updatedAt: Date
+  accessToken?: string
+}
