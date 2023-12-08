@@ -1,10 +1,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  googleSignInstart,
-  emailSingInStart,
-} from '../../store/actions/userActions'
+import { singInStart } from '../../store/actions/userActions'
 
 import { selectCurrentUser } from '../../store/selectors/userSelectors'
 
@@ -30,10 +27,6 @@ const SignInForm = (): React.JSX.Element => {
 
   const resetForm = () => {
     setFormFields(defaultFormFields)
-  }
-
-  const signInWithGoogle = async (): Promise<void> => {
-    dispatch(googleSignInstart())
   }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -82,14 +75,11 @@ const SignInForm = (): React.JSX.Element => {
           onChange={handleChange}
           required
         />
-        <ButtonsContaner>
+        <ButtonsContainer>
           <Button buttonType="base" type="submit">
             Entrar
           </Button>
-          <Button buttonType="google" type="button" onClick={signInWithGoogle}>
-            Entrar com Google
-          </Button>
-        </ButtonsContaner>
+        </ButtonsContainer>
       </form>
     </SignContainer>
   )
