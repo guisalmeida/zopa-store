@@ -57,7 +57,7 @@ export const TopbarContainer = styled.header`
 
     .topbar__link {
       text-decoration: none;
-      color: black;
+      color: var(--black);
       cursor: pointer;
       font-size: 1rem;
 
@@ -97,7 +97,7 @@ export const TopbarContainer = styled.header`
 
     .topbar__link {
       text-decoration: none;
-      color: black;
+      color: var(--black);
       cursor: pointer;
       margin-right: 1.5rem;
 
