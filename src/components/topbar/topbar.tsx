@@ -54,7 +54,11 @@ const Topbar = (): React.JSX.Element => {
 
         <div className="topbar__icons">
           {currentUser ? (
-            <Link to="/" className="topbar__link" title="Ver meu perfil">
+            <Link
+              to="/auth/user"
+              className="topbar__link"
+              title="Ver meu perfil"
+            >
               <UserIcon />
             </Link>
           ) : (

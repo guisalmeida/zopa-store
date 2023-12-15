@@ -1,5 +1,5 @@
-import { TProduct } from '../types'
-import axios from 'axios'
+import { TCurrentUser, TProduct } from '../types'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 
 const BASE_URL = 'http://localhost:5000/api'
 const local = JSON.parse(localStorage.getItem('persist:root') || '')
@@ -13,13 +13,13 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
   baseURL: BASE_URL,
-  headers: { token: `Bearer ${TOKEN}` },
+  headers: { Authorization: `Bearer ${TOKEN}` },
 })
 
 export const getProductsCollection = async (
   category = '',
   limit = 0,
-): Promise<TProduct[] | void> => {
+): Promise<TProduct[] | Error> => {
   const params: { category?: string; limit?: number } = {}
 
   if (category) params.category = category
@@ -31,28 +31,60 @@ export const getProductsCollection = async (
     })
 
     return data
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return console.log(error.message)
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      const error = e as AxiosError
+      return error
     } else {
-      return console.log(error as Error)
+      const error = e as Error
+      return error
     }
   }
 }
 
-export const signInUserWithEmailAndPassword = async (
+export const signInUser = async (
   email: string,
   password: string,
-) => {
-  if (!email || !password) return
+): Promise<AxiosResponse<TCurrentUser> | AxiosError> => {
+  return await publicRequest
+    .post('/auth/login', { email, password })
+    .then(res => res)
+    .catch(error => error as AxiosError)
+}
 
-  try {
-    return await publicRequest.post('/auth/login', { email, password })
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return console.log(error.message)
-    } else {
-      return console.log(error as Error)
-    }
-  }
+export const updateUser = async (
+  email: string,
+  username: string,
+): Promise<AxiosResponse<TCurrentUser> | AxiosError> => {
+  return await userRequest
+    .put(`/users/${currentUser._id}`, {
+      email,
+      username,
+    })
+    .then(res => res)
+    .catch(error => error as AxiosError)
+}
+
+export const signUpUser = async (
+  username: string,
+  email: string,
+  password: string,
+): Promise<AxiosResponse<TCurrentUser> | AxiosError> => {
+  return await publicRequest
+    .post('/auth/register', {
+      username,
+      email,
+      password,
+    })
+    .then(res => res)
+    .catch(error => error as AxiosError)
+}
+
+export const deleteUser = async (): Promise<
+  AxiosResponse<{ message: string }> | AxiosError
+> => {
+  return await userRequest
+    .delete(`/users/${currentUser._id}`)
+    .then(res => res)
+    .catch(error => error as AxiosError)
 }

@@ -27,6 +27,7 @@ export type TCurrentUser = {
   username: string
   email: string
   isAdmin: boolean
+  password?: string
   passwordChangedAt?: Date
   createdAt: Date
   updatedAt: Date
