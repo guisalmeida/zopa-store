@@ -42,7 +42,6 @@ export function* signUpSaga({
 }: TSignUpStart) {
   try {
     const res = yield* call(signUpUser, username, email, password)
-    yield* call(console.log, res)
 
     if (axios.isAxiosError(res)) {
       yield* put(signUpFailed(res.response?.data as AxiosError))
