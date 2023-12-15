@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
-import { signUpStart, googleSignInstart } from '../../store/actions/userActions'
+import { signUpStart } from '../../store/actions/userActions'
 import { selectCurrentUser } from '../../store/selectors/userSelectors'
 
 import Button from '../button'
@@ -11,7 +11,7 @@ import FormInput from '../formInput'
 
 import {
   SignContainer,
-  ButtonsContaner,
+  ButtonsContainer,
 } from '../../routes/authentication/styled'
 
 const defaultFormFields = {
@@ -55,10 +55,6 @@ const SignUpForm = () => {
 
     dispatch(signUpStart(email, password, username))
     resetForm()
-  }
-
-  const signUpWithGoogle = async (): Promise<void> => {
-    dispatch(googleSignInstart())
   }
 
   useEffect(() => {
@@ -115,14 +111,11 @@ const SignUpForm = () => {
           required
         />
 
-        <ButtonsContaner>
+        <ButtonsContainer>
           <Button buttonType="base" type="submit">
             Cadastrar
           </Button>
-          <Button buttonType="google" type="button" onClick={signUpWithGoogle}>
-            Cadastre-se com Google
-          </Button>
-        </ButtonsContaner>
+        </ButtonsContainer>
       </form>
     </SignContainer>
   )

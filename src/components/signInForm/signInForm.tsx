@@ -10,7 +10,7 @@ import FormInput from '../formInput'
 
 import {
   SignContainer,
-  ButtonsContaner,
+  ButtonsContainer,
 } from '../../routes/authentication/styled'
 
 const defaultFormFields = {
@@ -39,13 +39,13 @@ const SignInForm = (): React.JSX.Element => {
   ): Promise<void> => {
     event.preventDefault()
 
-    dispatch(emailSingInStart(email, password))
+    dispatch(singInStart(email, password))
     resetForm()
   }
 
   useEffect(() => {
     if (currentUser) {
-      navigate('/')
+      navigate('/auth/user')
     }
   }, [currentUser])
 
