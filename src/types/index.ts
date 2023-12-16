@@ -33,3 +33,24 @@ export type TCurrentUser = {
   updatedAt: Date
   accessToken?: string
 }
+
+export type TOrder = {
+  userId: string
+  products: {
+    productId: string
+    quantity: number
+  }[]
+  amount: number
+  address: {
+    city: string
+    state: string
+    line1: string
+    line2: string
+    postal_code: string
+    country: string
+  }
+  status?: string
+  _id?: string
+  createdAt?: string
+  updatedAt?: string
+}

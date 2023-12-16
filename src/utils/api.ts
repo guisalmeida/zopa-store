@@ -1,8 +1,10 @@
-import { TCurrentUser, TProduct } from '../types'
+import { TCurrentUser, TOrder, TProduct } from '../types'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 
 const BASE_URL = 'http://localhost:5000/api'
-const local = JSON.parse(localStorage.getItem('persist:root') || '')
+const local = localStorage.getItem('persist:root')
+  ? JSON.parse(localStorage.getItem('persist:root') || '')
+  : undefined
 const user = local?.user
 const currentUser = user && JSON.parse(user).currentUser
 const TOKEN = currentUser?.accessToken
@@ -19,7 +21,7 @@ export const userRequest = axios.create({
 export const getProductsCollection = async (
   category = '',
   limit = 0,
-): Promise<TProduct[] | Error> => {
+): Promise<TProduct[] | Error | AxiosError> => {
   const params: { category?: string; limit?: number } = {}
 
   if (category) params.category = category
@@ -85,6 +87,17 @@ export const deleteUser = async (): Promise<
 > => {
   return await userRequest
     .delete(`/users/${currentUser._id}`)
+    .then(res => res)
+    .catch(error => error as AxiosError)
+}
+
+export const createOrder = async (
+  order: TOrder,
+): Promise<AxiosResponse<TOrder> | AxiosError> => {
+  return await userRequest
+    .post(`/orders/${currentUser._id}`, {
+      ...order,
+    })
     .then(res => res)
     .catch(error => error as AxiosError)
 }
