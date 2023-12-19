@@ -91,8 +91,8 @@ export const PaymentForm = (): React.JSX.Element => {
 
       dispatch((createOrderStart(newOrder)))
 
-      // dispatch(setCartProducts([]))
-      // return navigate('/')
+      dispatch(setCartProducts([]))
+      return navigate('/')
     } else if (response.error) {
       toast.update(id, {
         render: response.error.message,

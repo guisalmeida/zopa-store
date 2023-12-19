@@ -37,6 +37,10 @@ export function* signInSaga({ payload: { email, password } }: TSingInStart) {
   }
 }
 
+export function* onSignInStart() {
+  yield* takeLatest('SIGN_IN_START', signInSaga)
+}
+
 export function* signUpSaga({
   payload: { email, password, username },
 }: TSignUpStart) {
@@ -52,6 +56,10 @@ export function* signUpSaga({
   } catch (error) {
     yield* put(signUpFailed(error as Error))
   }
+}
+
+export function* onSignUpStart() {
+  yield* takeLatest('SIGN_UP_START', signUpSaga)
 }
 
 export function* updateUserSaga({
@@ -73,13 +81,20 @@ export function* onUpdateStart() {
   yield* takeLatest('UPDATE_START', updateUserSaga)
 }
 
-export function* onSignUpStart() {
-  yield* takeLatest('SIGN_UP_START', signUpSaga)
-}
+// export function* isUserAuthenticated() {
+//   try {
+//     const isUserAuth = yield* call(verifyToken, 'token')
+//     if (isUserAuth.name === 'TokenExpiredError') {
+//       yield* put(signInFailed(isUserAuth.message as VerifyErrors))
+//     }
+//   } catch (error) {
+//     yield* put(signInFailed(error as AxiosError))
+//   }
+// }
 
-export function* onSignInStart() {
-  yield* takeLatest('SIGN_IN_START', signInSaga)
-}
+// export function* onCheckUserSession() {
+//   yield* takeLatest('CHECK_USER_SESSION', isUserAuthenticated)
+// }
 
 export function* signOutSaga() {
   try {
@@ -87,6 +102,10 @@ export function* signOutSaga() {
   } catch (error) {
     yield* put(signOutFailed(error as Error))
   }
+}
+
+export function* onSignOutStart() {
+  yield* takeLatest('SIGN_OUT_START', signOutSaga)
 }
 
 export function* deleteUserSaga() {
@@ -100,10 +119,6 @@ export function* deleteUserSaga() {
   } catch (error) {
     yield* put(signOutFailed(error as Error))
   }
-}
-
-export function* onSignOutStart() {
-  yield* takeLatest('SIGN_OUT_START', signOutSaga)
 }
 
 export function* onDeleteStart() {
