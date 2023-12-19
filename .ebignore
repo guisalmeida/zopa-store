@@ -1,0 +1,4 @@
+frontend/
+node_modules/
+.env
+# Add any other files or folders you want to exclude
