@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
+import { BASE_URL } from '../../utils/api'
 
 import {
   selectCartTotal,
@@ -43,7 +44,7 @@ const Checkout = (): React.JSX.Element => {
   useEffect(() => {
     const getClientSecret = async () => {
       const response = await fetch(
-        'http://localhost:5000/api/checkout/create-payment-intent',
+        `${BASE_URL}/checkout/create-payment-intent`,
         {
           method: 'post',
           headers: {
