@@ -1,7 +1,7 @@
 import { TCurrentUser, TOrder, TProduct } from '../types'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 
-export const BASE_URL = 'https://zopa-api.us-east-1.elasticbeanstalk.com/api'
+export const BASE_URL = 'https://d1ysyj49rdj569.cloudfront.net/api'
 const local = localStorage.getItem('persist:root')
   ? JSON.parse(localStorage.getItem('persist:root') || '')
   : undefined
