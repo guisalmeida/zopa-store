@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { signOutUser } from '../../utils/firebase'
 
-import { setIsMobileOpen } from '../../store/actions/userActions'
+import { setIsMobileOpen, signOutStart } from '../../store/actions/userActions'
 import {
   selectCurrentUser,
   selectIsMobileOpen,
@@ -17,6 +16,10 @@ const MenuMobile = (): React.JSX.Element => {
   const isMobileOpen = useSelector(selectIsMobileOpen)
 
   const toggleMobileMenu = () => dispatch(setIsMobileOpen(false))
+  const handleLogOut = (): void => {
+    toggleMobileMenu()
+    dispatch(signOutStart())
+  }
 
   return (
     <Slider
@@ -27,28 +30,32 @@ const MenuMobile = (): React.JSX.Element => {
       }
       handleShow={toggleMobileMenu}
     >
-      <h1>teste</h1>
+      <MenuContainer>
+        <ul>
+          <li>
+            <Link to="/shop" onClick={toggleMobileMenu}>
+              Loja
+            </Link>
+          </li>
+          <li>
+            {currentUser ? (
+              <button type="button" onClick={handleLogOut}>
+                Sair
+              </button>
+            ) : (
+              <Link
+                to="/auth/sign-in"
+                title="Entrar na sua conta"
+                onClick={toggleMobileMenu}>
+                Entrar
+              </Link>
+            )}
+          </li>
+        </ul>
+      </MenuContainer>
+
     </Slider>
-    // <MenuContainer $show={isMobileOpen}>
-    //   <ul>
-    //     <li>
-    //       <Link to="/shop" onClick={toggleMobileMenu}>
-    //         Loja
-    //       </Link>
-    //     </li>
-    //     <li>
-    //       {currentUser ? (
-    //         <button type="button" onClick={signOutUser}>
-    //           Sair
-    //         </button>
-    //       ) : (
-    //         <Link to="/auth/sign-in" title="Entrar na sua conta">
-    //           Entrar
-    //         </Link>
-    //       )}
-    //     </li>
-    //   </ul>
-    // </MenuContainer>
+
   )
 }
 
