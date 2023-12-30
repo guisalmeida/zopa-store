@@ -2,19 +2,12 @@
 
 https://zopa-clothing.netlify.app/
 
-### Firebase config
+### ToDo
 
-> To add a domain just go to build > authentication > authorized domains > add
-> domain
-
-### Run
-
-> In order to test the stripe payment from localy you should start the server
-> with netlify cli running the following command:
-
-```bash
-npm run netlify:test
-```
+- [x] Private route admin
+- [ ] Improve admin page mobile
+- [ ] Improve user details page
+- [ ] Finish user list admin crud
 
 ### Tools
 

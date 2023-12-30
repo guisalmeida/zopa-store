@@ -1,5 +1,5 @@
-import { takeLatest, all, call, put } from 'typed-redux-saga'
-import { toast } from 'react-toastify'
+import { takeLatest, all, call, put } from 'typed-redux-saga';
+import { toast } from 'react-toastify';
 
 import {
   signInFailed,
@@ -8,7 +8,7 @@ import {
   signOutFailed,
   signUpSuccess,
   signUpFailed,
-  TSingInStart,
+  TSignInStart,
   TSignUpStart,
   TSignInFailed,
   TSignOutFailed,
@@ -17,68 +17,77 @@ import {
   updateSuccess,
   deleteSuccess,
   updateFailed,
-} from '../actions/userActions'
+} from '../actions/userActions';
 
-import { deleteUser, signInUser, signUpUser, updateUser } from '../../utils/api'
-import axios, { AxiosError } from 'axios'
+import {
+  deleteUser,
+  signInUser,
+  signUpUser,
+  updateUser,
+} from '../../utils/api';
+import axios, { AxiosError } from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
-export function* signInSaga({ payload: { email, password } }: TSingInStart) {
+export function* signInSaga({ payload: { email, password } }: TSignInStart) {
   try {
-    const res = yield* call(signInUser, email, password)
+    const res = yield* call(signInUser, email, password);
 
     if (axios.isAxiosError(res)) {
-      yield* put(signInFailed(res.response?.data as AxiosError))
+      yield* put(signInFailed(res.response?.data as AxiosError));
     } else if (res.status === 200) {
-      const user = res.data
-      yield* put(signInSuccess(user))
+      const user = res.data;
+      yield* put(signInSuccess(user));
+      yield* call(showSuccessToast, 'Usuário logado com sucesso!');
     }
   } catch (error) {
-    yield* put(signInFailed(error as Error))
+    yield* put(signInFailed(error as Error));
   }
 }
 
 export function* onSignInStart() {
-  yield* takeLatest('SIGN_IN_START', signInSaga)
+  yield* takeLatest('SIGN_IN_START', signInSaga);
 }
 
 export function* signUpSaga({
-  payload: { email, password, username },
+  payload: { email, phone, password, username },
 }: TSignUpStart) {
   try {
-    const res = yield* call(signUpUser, username, email, password)
+    const res = yield* call(signUpUser, username, email, phone, password);
+    const navigate = useNavigate();
 
     if (axios.isAxiosError(res)) {
-      yield* put(signUpFailed(res.response?.data as AxiosError))
+      yield* put(signUpFailed(res.response?.data as AxiosError));
     } else if (res.status === 201) {
-      const user = res.data
-      yield* put(signUpSuccess(user))
+      const user = res.data;
+      yield* put(signUpSuccess(user));
+      yield* call(showSuccessToast, 'Usuário cadastrado com sucesso!');
     }
   } catch (error) {
-    yield* put(signUpFailed(error as Error))
+    yield* put(signUpFailed(error as Error));
   }
 }
 
 export function* onSignUpStart() {
-  yield* takeLatest('SIGN_UP_START', signUpSaga)
+  yield* takeLatest('SIGN_UP_START', signUpSaga);
 }
 
 export function* updateUserSaga({
   payload: { email, username },
 }: TUpdateStart) {
   try {
-    const res = yield* call(updateUser, email, username)
+    const res = yield* call(updateUser, email, username);
     if (axios.isAxiosError(res)) {
-      yield* put(updateFailed(res.response?.data as AxiosError))
+      yield* put(updateFailed(res.response?.data as AxiosError));
     } else if (res.data) {
-      yield* put(updateSuccess(res.data))
+      yield* put(updateSuccess(res.data));
     }
   } catch (error) {
-    yield* put(updateFailed(error as Error))
+    yield* put(updateFailed(error as Error));
   }
 }
 
 export function* onUpdateStart() {
-  yield* takeLatest('UPDATE_START', updateUserSaga)
+  yield* takeLatest('UPDATE_START', updateUserSaga);
 }
 
 // export function* isUserAuthenticated() {
@@ -98,32 +107,42 @@ export function* onUpdateStart() {
 
 export function* signOutSaga() {
   try {
-    yield* put(signOutSuccess())
+    yield* put(signOutSuccess());
   } catch (error) {
-    yield* put(signOutFailed(error as Error))
+    yield* put(signOutFailed(error as Error));
   }
 }
 
 export function* onSignOutStart() {
-  yield* takeLatest('SIGN_OUT_START', signOutSaga)
+  yield* takeLatest('SIGN_OUT_START', signOutSaga);
 }
 
 export function* deleteUserSaga() {
   try {
-    const res = yield* call(deleteUser)
+    const res = yield* call(deleteUser);
     if (axios.isAxiosError(res)) {
-      yield* put(signInFailed(res.response?.data as AxiosError))
+      yield* put(signInFailed(res.response?.data as AxiosError));
     } else if (res.data) {
-      yield* put(deleteSuccess())
+      yield* put(deleteSuccess());
     }
   } catch (error) {
-    yield* put(signOutFailed(error as Error))
+    yield* put(signOutFailed(error as Error));
   }
 }
 
 export function* onDeleteStart() {
-  yield* takeLatest('DELETE_START', deleteUserSaga)
+  yield* takeLatest('DELETE_START', deleteUserSaga);
 }
+
+const showSuccessToast = (msg: string) => {
+  return toast.success(msg, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: true,
+    pauseOnHover: false,
+    draggable: false,
+  });
+};
 
 const showErrorToast = (error: Error) => {
   return toast.error(error.message, {
@@ -132,29 +151,29 @@ const showErrorToast = (error: Error) => {
     hideProgressBar: true,
     pauseOnHover: false,
     draggable: false,
-  })
-}
+  });
+};
 
 export function* showError({
   payload,
 }: TSignInFailed | TSignOutFailed | TSignUpFailed) {
-  yield* call(showErrorToast, payload)
+  yield* call(showErrorToast, payload);
 }
 
 export function* onSignInFailed() {
-  yield* takeLatest('SIGN_IN_FAILED', showError)
+  yield* takeLatest('SIGN_IN_FAILED', showError);
 }
 
 export function* onSignUpFailed() {
-  yield* takeLatest('SIGN_UP_FAILED', showError)
+  yield* takeLatest('SIGN_UP_FAILED', showError);
 }
 
 export function* onSignOutFailed() {
-  yield* takeLatest('SIGN_OUT_FAILED', showError)
+  yield* takeLatest('SIGN_OUT_FAILED', showError);
 }
 
 export function* onDeleteFailed() {
-  yield* takeLatest('DELETE_FAILED', showError)
+  yield* takeLatest('DELETE_FAILED', showError);
 }
 
 export function* userSaga() {
@@ -168,5 +187,5 @@ export function* userSaga() {
     call(onSignUpFailed),
     call(onSignOutFailed),
     call(onDeleteFailed),
-  ])
+  ]);
 }

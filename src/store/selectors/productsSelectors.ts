@@ -1,16 +1,16 @@
-import { createSelector } from 'reselect'
-import { TProductsState } from '../reducers/productsReducer'
-import { TRootState } from '../store'
+import { createSelector } from 'reselect';
+import { TProductsState } from '../reducers/productsReducer';
+import { TRootState } from '../store';
 
 const selectProductsReducer = (state: TRootState): TProductsState =>
-  state.products
+  state.products;
 
 export const selectAllProducts = createSelector(
   [selectProductsReducer],
-  products => products.allProducts,
-)
+  (products) => products.allProducts
+);
 
 export const selectIsLoading = createSelector(
   [selectProductsReducer],
-  products => products.isLoading,
-)
+  (products) => products.isLoading
+);

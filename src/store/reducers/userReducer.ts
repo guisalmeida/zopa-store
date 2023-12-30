@@ -1,4 +1,4 @@
-import { AnyAction } from 'redux'
+import { AnyAction } from 'redux';
 
 import {
   setIsMobileOpen,
@@ -9,46 +9,46 @@ import {
   signInFailed,
   updateSuccess,
   deleteSuccess,
-} from '../actions/userActions'
-import { TCurrentUser } from '../../types'
+} from '../actions/userActions';
+import { TCurrentUser } from '../../types';
 
 export type TUserState = {
-  readonly currentUser: TCurrentUser | null
-  readonly isMobileOpen: boolean
-  readonly isLoading: boolean
-  readonly error: Error | null
-}
+  readonly currentUser: TCurrentUser | null;
+  readonly isMobileOpen: boolean;
+  readonly isLoading: boolean;
+  readonly error: Error | null;
+};
 
 const INITIAL_STATE: TUserState = {
   currentUser: null,
   isMobileOpen: false,
   isLoading: false,
   error: null,
-}
+};
 
 export const userReducer = (
   state = INITIAL_STATE,
-  action: AnyAction,
+  action: AnyAction
 ): TUserState => {
   if (setIsMobileOpen.match(action)) {
     return {
       ...state,
       isMobileOpen: action.payload,
-    }
+    };
   }
 
   if (signInSuccess.match(action) || updateSuccess.match(action)) {
     return {
       ...state,
       currentUser: action.payload,
-    }
+    };
   }
 
   if (signOutSuccess.match(action) || deleteSuccess.match(action)) {
     return {
       ...state,
       currentUser: null,
-    }
+    };
   }
 
   if (
@@ -59,8 +59,8 @@ export const userReducer = (
     return {
       ...state,
       error: action.payload,
-    }
+    };
   }
 
-  return state
-}
+  return state;
+};

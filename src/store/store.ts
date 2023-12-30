@@ -1,50 +1,50 @@
-import { compose, legacy_createStore, applyMiddleware } from 'redux'
-import createSagaMiddleware from 'redux-saga'
-import { persistStore, persistReducer, PersistConfig } from 'redux-persist'
-import { rootReducer } from './rootReducer'
-import { rootSaga } from './rootSaga'
+import { compose, legacy_createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
+import { rootReducer } from './rootReducer';
+import { rootSaga } from './rootSaga';
 
 // defaults to localStorage for web
-import storage from 'redux-persist/lib/storage'
+import storage from 'redux-persist/lib/storage';
 
 declare global {
   interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }
 
-export type TRootState = ReturnType<typeof rootReducer>
+export type TRootState = ReturnType<typeof rootReducer>;
 
 type TExtendedPersistConfig = PersistConfig<TRootState> & {
-  whitelist: (keyof TRootState)[]
-}
+  whitelist: (keyof TRootState)[];
+};
 
 const persistConfig: TExtendedPersistConfig = {
   key: 'root',
   storage,
   whitelist: ['cart', 'user'],
-}
+};
 
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
 
-const middleWares = [sagaMiddleware]
+const middleWares = [sagaMiddleware];
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const composeEnhancer =
   (import.meta.env.MODE === 'development' &&
     window &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose
+  compose;
 
-const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares))
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 export const store = legacy_createStore(
   persistedReducer,
   undefined,
-  composedEnhancers,
-)
+  composedEnhancers
+);
 
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga);
 
-export const persistor = persistStore(store)
+export const persistor = persistStore(store);
