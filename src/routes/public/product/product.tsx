@@ -69,6 +69,7 @@ const Product = () => {
 
           <div className="product__content">
             <h3 className="product__name">{product?.name}</h3>
+            <p className='product__description'>{product?.description}</p>
             <div className="product__pricing">
               {product?.onSale && (
                 <span className="product__price product__price--old">

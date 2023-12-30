@@ -26,12 +26,14 @@ export type TCurrentUser = {
   _id: string;
   username: string;
   email: string;
+  phone: string;
   isAdmin: boolean;
   password?: string;
   passwordChangedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
   accessToken?: string;
+  __v?: number;
 };
 
 export type TOrder = {

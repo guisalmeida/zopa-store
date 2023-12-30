@@ -1,6 +1,6 @@
 import FeaturedInfo from '../../../components/admin/featuredInfo';
-import WidgetSm from '../../../components/admin/widgetSm';
-import WidgetLg from '../../../components/admin/widgetLg';
+import NewClientsWidget from '../../../components/admin/newClientsWidget';
+import LatestTransactionsWidget from '../../../components/admin/latestTransactionsWidget';
 
 import { DashboardContainer } from './styled';
 
@@ -10,8 +10,8 @@ export default function Dashboard() {
       <FeaturedInfo />
       {/* <Chart data={userStats} title="Analytics" grid dataKey="Active User" /> */}
       <div className="homeWidgets">
-        <WidgetSm />
-        <WidgetLg />
+        <NewClientsWidget />
+        <LatestTransactionsWidget />
       </div>
     </DashboardContainer>
   );

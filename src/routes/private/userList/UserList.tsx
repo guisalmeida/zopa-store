@@ -7,16 +7,17 @@ import { Link } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import { UserListContainer, PersonDeleteIcon } from './styled';
+import { TCurrentUser } from '../../../types';
 
 export default function UserList() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<TCurrentUser[]>([]);
 
-  const handleDelete = (id: string) => {
-    setData(data.filter((item: { id: string }) => item.id !== id));
+  const handleDelete = (userId: string) => {
+    setData(data.filter((item) => item._id !== userId));
   };
 
   useEffect(() => {
-    const newData = [
+    const newData: TCurrentUser[] = [
       {
         _id: "657cb1ff35c1160bf62980c4",
         username: "deinha123",
@@ -24,9 +25,9 @@ export default function UserList() {
         password: "$2b$08$m5zQEYyA7NIolSxeNrvac.Ko/3awsduCr9T8fBeBg5LfnuMbsiR16",
         isAdmin: false,
         phone: '(51)912345678',
-        passwordChangedAt: "2023-12-15T20:07:27.308Z",
-        createdAt: "2023-12-15T20:07:27.548Z",
-        updatedAt: "2023-12-15T20:07:27.548Z",
+        passwordChangedAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         __v: 0
       },
       {
@@ -36,9 +37,9 @@ export default function UserList() {
         password: "$2b$08$x8mvCC0A191Qb4CUWk8yHeHEzWZo9vohgSCzVgGjqPSWQgleHBHjO",
         isAdmin: true,
         phone: '(51)912345678',
-        passwordChangedAt: "2023-12-23T20:27:32.791Z",
-        createdAt: "2023-12-23T20:27:32.808Z",
-        updatedAt: "2023-12-23T20:27:32.808Z",
+        passwordChangedAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         __v: 0
       }
     ]
@@ -82,7 +83,9 @@ export default function UserList() {
       width: 100,
       renderCell: (params: { row: { id: string } }) => {
         return (
-          <button className="userListDelete" onClick={() => handleDelete(params.row.id)}>
+          <button
+            className="userListDelete"
+            onClick={() => handleDelete(params.row.id)}>
             <PersonDeleteIcon />
           </button>
         );

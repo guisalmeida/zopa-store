@@ -20,9 +20,14 @@ export default function NewProduct() {
     }],
     inStock: false,
     colors: [],
-    images: [],
+    images: [
+      'https://zopa-clothing.s3.amazonaws.com/images/beanie_black.jpg',
+      'https://zopa-clothing.s3.amazonaws.com/images/beanie_black_detail.jpg'
+    ],
     selectedSize: ''
   });
+
+  const [file, setFile] = useState<File | null>(null)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let key = e.target.name;
@@ -58,23 +63,26 @@ export default function NewProduct() {
     } catch (error) {
       console.log(error);
     }
-
   };
+
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    // console.log(e.target.files[0]);
+  }
 
   return (
     <NewProductContainer>
       <h1 className="addProductTitle">Cadastrar Novo Produto</h1>
 
       <form className="addProductForm" onSubmit={handleSubmit}>
-        {/* <div className="addProductItem">
+        <div className="addProductItem">
           <label>Imagens</label>
           <input
             type="file"
             id="file"
-            // onChange={(e) => setFile(e.target.files[0])}
-            onChange={(e) => console.log(e.target.files[0])}
+            onChange={handleImageUpload}
           />
-        </div> */}
+        </div>
 
         <div className="addProductItem">
           <label>Nome</label>

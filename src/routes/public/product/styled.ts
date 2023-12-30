@@ -23,11 +23,15 @@ export const ProductContainer = styled.div`
       font-weight: bold;
     }
 
+    .product__description {
+      margin: 0 0 1rem;
+    }
+
     .product__pricing {
       display: flex;
 
       .product__price {
-        font-size: 1rem;
+        font-size: 1.5rem;
         margin: 0 0 0.8rem;
         font-weight: 700;
 

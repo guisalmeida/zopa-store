@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { TProduct } from "../../../types";
 import {
@@ -9,15 +9,40 @@ import {
 import Spinner from "../../../components/client/spinner/spinner";
 
 import { ProductListContainer, DeleteForeverIcon } from './styled'
+import { deleteProduct } from "../../../utils/api";
+import { fetchProductsStart } from "../../../store/actions/productsActions";
+import { toast } from "react-toastify";
+import { AxiosResponse, HttpStatusCode } from "axios";
 
 export default function ProductList() {
+  const dispatch = useDispatch()
   const allProducts: TProduct[] = useSelector(selectAllProducts);
   const isLoading: boolean = useSelector(selectIsLoading);
 
-  const handleDelete = (id: string) => {
-    console.log(id);
+  const handleDelete = async (productId: string) => {
+    try {
+      const res = await deleteProduct(productId);
 
-    // deleteProduct(id, dispatch);
+      if (res.status === 200) {
+        //@ts-ignore
+        if (res.data) {
+          //@ts-ignore
+          toast.success(res.data.message, {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: true,
+            pauseOnHover: false,
+            draggable: false,
+          });
+        }
+
+
+        dispatch(fetchProductsStart());
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const columns: GridColDef[] = [
@@ -57,7 +82,7 @@ export default function ProductList() {
         return (
           <button
             className="productListDelete"
-            onClick={() => handleDelete(params.id)}>
+            onClick={() => handleDelete(params.id as string)}>
             <DeleteForeverIcon />
           </button>
         );

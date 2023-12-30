@@ -25,7 +25,7 @@ export const NewProductContainer = styled.div`
   }
   
   .editProductItem {
-    width: 250px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
