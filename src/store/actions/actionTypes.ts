@@ -1,16 +1,16 @@
 export type TAction<T> = {
-  type: T
-}
+  type: T;
+};
 
 export type TActionWithPayload<T, P> = {
-  type: T
-  payload: P
-}
+  type: T;
+  payload: P;
+};
 
 export const SEARCH_ACTION_TYPE = {
   SET_IS_SEARCH_OPEN: 'SET_IS_SEARCH_OPEN',
   SET_SEARCH_PRODUCTS: 'SET_SEARCH_PRODUCTS',
-} as const
+} as const;
 
 export const USER_ACTION_TYPE = {
   SET_IS_MOBILE_OPEN: 'SET_IS_MOBILE_OPEN',
@@ -30,13 +30,13 @@ export const USER_ACTION_TYPE = {
   DELETE_START: 'DELETE_START',
   DELETE_SUCCESS: 'DELETE_SUCCESS',
   DELETE_FAILED: 'DELETE_FAILED',
-} as const
+} as const;
 
 export const PRODUCTS_ACTION_TYPE = {
   FETCH_PRODUCTS_START: 'FETCH_PRODUCTS_START',
   FETCH_PRODUCTS_SUCCESS: 'FETCH_PRODUCTS_SUCCESS',
   FETCH_PRODUCTS_FAILED: 'FETCH_PRODUCTS_FAILED',
-} as const
+} as const;
 
 export const CART_ACTION_TYPE = {
   SET_IS_CART_OPEN: 'SET_IS_CART_OPEN',
@@ -44,4 +44,4 @@ export const CART_ACTION_TYPE = {
   CREATE_ORDER_START: 'CREATE_ORDER_START',
   CREATE_ORDER_SUCCESS: 'CREATE_ORDER_SUCCESS',
   CREATE_ORDER_FAILED: 'CREATE_ORDER_FAILED',
-} as const
+} as const;

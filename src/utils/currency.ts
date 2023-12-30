@@ -3,5 +3,5 @@ export const priceToStringBr = (priceNumber: number): string => {
     minimumFractionDigits: 2,
     style: 'currency',
     currency: 'BRL',
-  })
-}
+  });
+};

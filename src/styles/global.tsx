@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components'
-import './reset.css'
-import 'react-toastify/dist/ReactToastify.css'
+import { createGlobalStyle } from 'styled-components';
+import './reset.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GlobalStyles = createGlobalStyle`
 
@@ -75,5 +75,5 @@ button, a {
     width: 100%;
     max-width: var(--break-large);
 }
-`
-export default GlobalStyles
+`;
+export default GlobalStyles;
