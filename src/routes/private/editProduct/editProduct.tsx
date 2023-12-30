@@ -123,16 +123,18 @@ export default function EditProduct() {
           />
         </div>
 
-        <div className="editProductItem">
-          <label>Preço antigo (sem desconto)</label>
-          <input
-            name="oldPrice"
-            type="number"
-            placeholder="100"
-            value={newProduct?.oldPrice}
-            onChange={handleChange}
-          />
-        </div>
+        {newProduct.onSale === true ? (
+          <div className="editProductItem">
+            <label>Preço antigo</label>
+            <input
+              name="oldPrice"
+              type="number"
+              placeholder="100"
+              value={newProduct?.oldPrice}
+              onChange={handleChange}
+            />
+          </div>
+        ) : null}
 
         <div className="editProductItem">
           <label>Categorias</label>

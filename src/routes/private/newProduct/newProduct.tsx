@@ -128,16 +128,18 @@ export default function NewProduct() {
           />
         </div>
 
-        <div className="addProductItem">
-          <label>Preço antigo (sem desconto)</label>
-          <input
-            name="oldPrice"
-            type="number"
-            placeholder="100"
-            value={newProduct.oldPrice}
-            onChange={handleChange}
-          />
-        </div>
+        {newProduct.onSale === true ? (
+          <div className="addProductItem">
+            <label>Preço antigo</label>
+            <input
+              name="oldPrice"
+              type="number"
+              placeholder="100"
+              value={newProduct.oldPrice}
+              onChange={handleChange}
+            />
+          </div>
+        ) : null}
 
         <div className="addProductItem">
           <label>Categorias</label>
