@@ -7,7 +7,11 @@ export default function LatestTransactionsWidget() {
   const [orders, setOrders] = useState<TOrder[]>([]);
 
   const Button = ({ type }: { type: string }) => {
-    return <button className={'latestTransactionsWidgetButton ' + type}>{type}</button>;
+    return <button
+      className={'latestTransactionsWidgetButton ' + type}
+    >
+      {type}
+    </button>;
   };
 
   return (
