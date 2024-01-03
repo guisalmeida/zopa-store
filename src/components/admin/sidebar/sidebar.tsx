@@ -18,29 +18,59 @@ export default function Sidebar() {
             </Link>
 
             <Link to="/admin/transactions" className="link">
-              <li className={`sidebarListItem ${params['*'] === 'transactions' ? 'active' : ''}`}>Transações</li>
+              <li
+                className={`sidebarListItem ${
+                  params['*'] === 'transactions' ? 'active' : ''
+                }`}
+              >
+                Transações
+              </li>
             </Link>
           </ul>
 
           <h3 className="sidebarTitle">Usuários</h3>
           <ul className="sidebarList">
             <Link to="/admin/new-user" className="link">
-              <li className={`sidebarListItem ${params['*'] === 'new-user' ? 'active' : ''}`}>Novo</li>
+              <li
+                className={`sidebarListItem ${
+                  params['*'] === 'new-user' ? 'active' : ''
+                }`}
+              >
+                Novo
+              </li>
             </Link>
 
             <Link to="/admin/users" className="link">
-              <li className={`sidebarListItem ${params['*'] === 'users' ? 'active' : ''}`}>Listar</li>
+              <li
+                className={`sidebarListItem ${
+                  params['*'] === 'users' ? 'active' : ''
+                }`}
+              >
+                Listar
+              </li>
             </Link>
           </ul>
 
           <h3 className="sidebarTitle">Produtos</h3>
           <ul className="sidebarList">
-            <Link to="/admin/new-product" className="link">
-              <li className={`sidebarListItem ${params['*'] === 'new-product' ? 'active' : ''}`}>Novo</li>
+            <Link to="/admin/products/new" className="link">
+              <li
+                className={`sidebarListItem ${
+                  params['*'] === 'product' ? 'active' : ''
+                }`}
+              >
+                Novo
+              </li>
             </Link>
 
             <Link to="/admin/products" className="link">
-              <li className={`sidebarListItem ${params['*'] === 'products' ? 'active' : ''}`}>Listar</li>
+              <li
+                className={`sidebarListItem ${
+                  params['*'] === 'products' ? 'active' : ''
+                }`}
+              >
+                Listar
+              </li>
             </Link>
           </ul>
         </div>

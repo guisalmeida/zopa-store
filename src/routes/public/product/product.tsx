@@ -69,61 +69,68 @@ const Product = () => {
 
           <div className="product__content">
             <h3 className="product__name">{product?.name}</h3>
-            <p className='product__description'>{product?.description}</p>
-            <div className="product__pricing">
-              {product?.onSale && (
-                <span className="product__price product__price--old">
-                  {product && priceToStringBr(product.oldPrice)}
-                </span>
-              )}
-              <span className="product__price">
-                {product && priceToStringBr(product.price)}
-              </span>
-              {/* <span className="product__price product__price--installments">
+            <p className="product__description">{product?.description}</p>
+            {product && product.inStock ? (
+              <>
+                <div className="product__pricing">
+                  {product?.onSale && (
+                    <span className="product__price product__price--old">
+                      {product && priceToStringBr(product.oldPrice)}
+                    </span>
+                  )}
+                  <span className="product__price">
+                    {product && priceToStringBr(product.price)}
+                  </span>
+                  {/* <span className="product__price product__price--installments">
                 or {product?.installments}
               </span> */}
-            </div>
+                </div>
 
-            <div className="product__sizes">
-              <p className="product__description">Tamanhos disponíveis:</p>
+                <div className="product__sizes">
+                  <p className="product__description">Tamanhos disponíveis:</p>
 
-              {sizeError && (
-                <p className="product__description product__description--warning">
-                  É necessário escolher um tamanho!
-                </p>
-              )}
+                  {sizeError && (
+                    <p className="product__description product__description--warning">
+                      É necessário escolher um tamanho!
+                    </p>
+                  )}
 
-              <div className="product__btn-group">
-                {product?.sizes.map(
-                  (productSize, index) =>
-                    productSize.available && (
-                      <button
-                        key={index}
-                        type="button"
-                        className={`product__filter ${selectedSize === productSize._id
-                          ? 'product__filter--selected'
-                          : ''
-                          }`}
-                        onClick={() => {
-                          handleSize(productSize._id as string);
-                        }}
-                      >
-                        {productSize.size}
-                      </button>
-                    )
-                )}
-              </div>
-            </div>
+                  <div className="product__btn-group">
+                    {product?.sizes.map(
+                      (productSize, index) =>
+                        productSize.available && (
+                          <button
+                            key={index}
+                            type="button"
+                            className={`product__filter ${
+                              selectedSize === productSize._id
+                                ? 'product__filter--selected'
+                                : ''
+                            }`}
+                            onClick={() => {
+                              handleSize(productSize._id as string);
+                            }}
+                          >
+                            {productSize.size}
+                          </button>
+                        )
+                    )}
+                  </div>
+                </div>
 
-            <div className="product__actions">
-              <button
-                type="button"
-                className="product__add-to-cart"
-                onClick={handleAddToCart}
-              >
-                Adicionar ao carrinho
-              </button>
-            </div>
+                <div className="product__actions">
+                  <button
+                    type="button"
+                    className="product__add-to-cart"
+                    onClick={handleAddToCart}
+                  >
+                    Adicionar ao carrinho
+                  </button>
+                </div>
+              </>
+            ) : (
+              <span className="product__sold-out">Sold Out</span>
+            )}
           </div>
         </>
       )}

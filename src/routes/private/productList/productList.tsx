@@ -1,21 +1,20 @@
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { TProduct } from "../../../types";
+import { TProduct } from '../../../types';
 import {
   selectAllProducts,
-  selectIsLoading
-} from "../../../store/selectors/productsSelectors";
-import Spinner from "../../../components/client/spinner/spinner";
+  selectIsLoading,
+} from '../../../store/selectors/productsSelectors';
+import Spinner from '../../../components/client/spinner/spinner';
 
-import { ProductListContainer, DeleteForeverIcon } from './styled'
-import { deleteProduct } from "../../../utils/api";
-import { fetchProductsStart } from "../../../store/actions/productsActions";
-import { toast } from "react-toastify";
-import { AxiosResponse, HttpStatusCode } from "axios";
+import { ProductListContainer, DeleteForeverIcon } from './styled';
+import { deleteProduct } from '../../../utils/api';
+import { fetchProductsStart } from '../../../store/actions/productsActions';
+import { toast } from 'react-toastify';
 
 export default function ProductList() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const allProducts: TProduct[] = useSelector(selectAllProducts);
   const isLoading: boolean = useSelector(selectIsLoading);
 
@@ -36,22 +35,28 @@ export default function ProductList() {
           });
         }
 
-
         dispatch(fetchProductsStart());
       }
-
     } catch (error) {
-      console.log(error);
+      const err = error as Error;
+      console.log(err);
+      toast.error(err.message, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        pauseOnHover: false,
+        draggable: false,
+      });
     }
   };
 
   const columns: GridColDef[] = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: '_id', headerName: 'ID', width: 220 },
     {
-      field: "product",
-      headerName: "Product",
+      field: 'product',
+      headerName: 'Product',
       width: 200,
-      renderCell: (params: { row: { images: string[]; name: string }; }) => {
+      renderCell: (params: { row: { images: string[]; name: string } }) => {
         return (
           <div className="productListItem">
             <img className="productListImg" src={params.row.images[0]} alt="" />
@@ -60,8 +65,8 @@ export default function ProductList() {
         );
       },
     },
-    { field: "quantity", headerName: "Quantidade", width: 100 },
-    { field: "price", headerName: "Preço", width: 100 },
+    { field: 'quantity', headerName: 'Quantidade', width: 100 },
+    { field: 'price', headerName: 'Preço', width: 100 },
     {
       field: 'edit',
       headerName: 'Editar',
@@ -82,7 +87,8 @@ export default function ProductList() {
         return (
           <button
             className="productListDelete"
-            onClick={() => handleDelete(params.id as string)}>
+            onClick={() => handleDelete(params.id as string)}
+          >
             <DeleteForeverIcon />
           </button>
         );

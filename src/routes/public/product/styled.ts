@@ -83,8 +83,9 @@ export const ProductContainer = styled.div`
 
           @media (hover: hover) {
             &:hover {
-              background: var(--grey);
+              background: var(--dark);
               color: white;
+              border: none;
             }
           }
 
@@ -123,6 +124,13 @@ export const ProductContainer = styled.div`
         }
       }
     }
+  }
+
+  .product__sold-out {
+    color: var(--grey);
+    text-decoration: line-through;
+    font-size: 1.5rem;
+    font-weight: bold;
   }
 
   ${media.lessThan('large')`

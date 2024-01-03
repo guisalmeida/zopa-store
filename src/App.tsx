@@ -22,7 +22,6 @@ const Admin = lazy(() => import('./routes/private/admin'));
 const Dashboard = lazy(() => import('./routes/private/dashboard'));
 const NewUser = lazy(() => import('./routes/private/newUser'));
 const UserList = lazy(() => import('./routes/private/userList'));
-const NewProduct = lazy(() => import('./routes/private/newProduct'));
 const ProductList = lazy(() => import('./routes/private/productList'));
 const EditProduct = lazy(() => import('./routes/private/editProduct'));
 
@@ -40,7 +39,7 @@ function App() {
   return (
     <Suspense fallback={<Spinner />}>
       <Routes>
-        <Route path="/" element={<Layout />} >
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
 
           <Route path="shop/*" element={<Shop />}>
@@ -54,26 +53,24 @@ function App() {
             <Route path="sign-up" element={<SignUpForm />} />
           </Route>
 
-          <Route element={<LoggedRoutes />} >
+          <Route element={<LoggedRoutes />}>
             <Route path="user" element={<User />} />
             <Route path="checkout" element={<Checkout />} />
           </Route>
 
-          <Route element={<AdminRoutes />} >
+          <Route element={<AdminRoutes />}>
             <Route path="admin/*" element={<Admin />}>
               <Route index element={<Dashboard />} />
               <Route path="new-user" element={<NewUser />} />
               <Route path="users" element={<UserList />} />
-              <Route path="new-product" element={<NewProduct />} />
-              <Route path="products" element={<ProductList />} />
               <Route path="products/:productId" element={<EditProduct />} />
+              <Route path="products" element={<ProductList />} />
               <Route
                 path="transactions"
                 element={<h1>Página ainda não disponível</h1>}
               />
             </Route>
           </Route>
-
         </Route>
       </Routes>
     </Suspense>
