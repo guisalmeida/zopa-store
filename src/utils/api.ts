@@ -14,14 +14,14 @@ export const publicRequest = axios.create({
 });
 
 export const userRequest = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: BASE_URL,
   headers: {
     Authorization: `Bearer ${TOKEN}`,
   },
 });
 
 export const userRequestFormData = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: BASE_URL,
   headers: {
     Authorization: `Bearer ${TOKEN}`,
     'Content-Type': 'multipart/form-data',
