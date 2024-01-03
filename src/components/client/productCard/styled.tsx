@@ -71,4 +71,10 @@ export const ProductCardContainer = styled.div`
       }
     }
   }
+
+  .product-card__sold-out {
+    font-size: 1rem;
+    color: var(--grey);
+    text-decoration: line-through;
+  }
 `;

@@ -14,6 +14,7 @@ import {
   ListItemPrices,
   RemoveIcon,
 } from './styled';
+import Product from '../../../routes/public/product';
 
 type ListItemProps = {
   item: TProduct;
@@ -27,8 +28,8 @@ const ListItem = ({ item, mode }: ListItemProps): React.JSX.Element => {
 
   const { size } = item.selectedSize
     ? item.sizes.find((size) => size._id === item.selectedSize) || {
-      size: undefined,
-    }
+        size: undefined,
+      }
     : { size: undefined };
 
   return (
@@ -55,24 +56,28 @@ const ListItem = ({ item, mode }: ListItemProps): React.JSX.Element => {
         {mode === 'cart' && <ListQuantity item={item} />}
       </ListItemInfo>
 
-      <ListItemPrices>
-        {mode === 'cart' && (
-          <button type="button" onClick={handleDelete}>
-            <RemoveIcon />
-          </button>
-        )}
-        {item?.onSale && (
-          <p className="list__price list__price--old">
-            {priceToStringBr(item.oldPrice * item.quantity)}
+      {item.inStock ? (
+        <ListItemPrices>
+          {mode === 'cart' && (
+            <button type="button" onClick={handleDelete}>
+              <RemoveIcon />
+            </button>
+          )}
+          {item?.onSale && (
+            <p className="list__price list__price--old">
+              {priceToStringBr(item.oldPrice * item.quantity)}
+            </p>
+          )}
+          <p className="list__price">
+            {priceToStringBr(item.price * item.quantity)}
           </p>
-        )}
-        <p className="list__price">
-          {priceToStringBr(item.price * item.quantity)}
-        </p>
-        {/* <p className="list__price list__price--installments">
+          {/* <p className="list__price list__price--installments">
           {item?.installments}
         </p> */}
-      </ListItemPrices>
+        </ListItemPrices>
+      ) : (
+        <span className="list__sold-out">Sold Out</span>
+      )}
     </ListItemContainer>
   );
 };

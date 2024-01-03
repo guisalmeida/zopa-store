@@ -9,6 +9,13 @@ export const ListItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
+
+  .list__sold-out {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--grey);
+    text-decoration: line-through;
+  }
 `;
 
 export const ListItemFigure = styled.figure`

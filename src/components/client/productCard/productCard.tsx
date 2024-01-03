@@ -27,16 +27,20 @@ const ProductCard = ({ product }: ProductCardProps): React.JSX.Element => {
           />
         </figure>
         <h3 className="product-card__name">{product.name}</h3>
-        <div className="product-card__pricing">
-          {product.onSale && (
-            <span className="product-card__price product-card__price--old">
-              {product && priceToStringBr(product.oldPrice)}
+        {product.inStock ? (
+          <div className="product-card__pricing">
+            {product.onSale && (
+              <span className="product-card__price product-card__price--old">
+                {product && priceToStringBr(product.oldPrice)}
+              </span>
+            )}
+            <span className="product-card__price">
+              {product && priceToStringBr(product.price)}
             </span>
-          )}
-          <span className="product-card__price">
-            {product && priceToStringBr(product.price)}
-          </span>
-        </div>
+          </div>
+        ) : (
+          <span className="product-card__sold-out">Sold Out</span>
+        )}
       </Link>
     </ProductCardContainer>
   );
