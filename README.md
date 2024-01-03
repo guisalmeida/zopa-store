@@ -2,9 +2,12 @@
 
 https://zopa-clothing.netlify.app/
 
-### ToDo
+### Todo / Upcoming features
 
 - [x] Private route admin
+- [ ] FIX localstorage get token
+- [ ] FIX TS-ignore
+- [ ] Create sold out feat product page
 - [ ] Improve admin page mobile
 - [ ] Improve user details page
 - [ ] Finish user list admin crud
@@ -19,7 +22,6 @@ https://zopa-clothing.netlify.app/
 
 ### References
 
-- [TypeScript + React: Why I don't use React.FC](https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/)
 - [Styled components + TS](https://styled-components.com/docs/api#typescript)
 - [Styled components + TS guide](https://www.atatus.com/blog/guide-to-typescript-and-styled-components/)
 - [React + TS cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs)
