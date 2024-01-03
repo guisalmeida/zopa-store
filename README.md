@@ -7,6 +7,7 @@ https://zopa-clothing.netlify.app/
 - [x] Private route admin
 - [ ] FIX localstorage get token
 - [ ] FIX TS-ignore
+- [ ] FIX form select default value
 - [ ] Create sold out feat product page
 - [ ] Improve admin page mobile
 - [ ] Improve user details page

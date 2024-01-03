@@ -411,7 +411,7 @@ export default function EditProduct() {
             className="edit-product__Select"
             name="inStock"
             onChange={handleSelect}
-            // defaultValue={String(newProduct?.inStock)}
+            defaultValue={String(newProduct?.inStock)}
           >
             <option value="true">Sim</option>
             <option value="false">Não</option>
