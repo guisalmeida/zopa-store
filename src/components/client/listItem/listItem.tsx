@@ -14,7 +14,6 @@ import {
   ListItemPrices,
   RemoveIcon,
 } from './styled';
-import Product from '../../../routes/public/product';
 
 type ListItemProps = {
   item: TProduct;
