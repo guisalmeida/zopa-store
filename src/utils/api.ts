@@ -14,8 +14,18 @@ export const publicRequest = axios.create({
 });
 
 export const userRequest = axios.create({
-  baseURL: BASE_URL,
-  headers: { Authorization: `Bearer ${TOKEN}` },
+  baseURL: 'http://localhost:5000/api',
+  headers: {
+    Authorization: `Bearer ${TOKEN}`,
+  },
+});
+
+export const userRequestFormData = axios.create({
+  baseURL: 'http://localhost:5000/api',
+  headers: {
+    Authorization: `Bearer ${TOKEN}`,
+    'Content-Type': 'multipart/form-data',
+  },
 });
 
 export const getProductsList = async (
@@ -134,6 +144,20 @@ export const deleteProduct = async (
 > => {
   return await userRequest
     .delete(`/products/${productId}`)
+    .then((res) => res)
+    .catch((error) => error as AxiosError);
+};
+
+export const uploadImages = async (payload: FormData) => {
+  return await userRequestFormData
+    .post(`images/upload`, payload)
+    .then((res) => res)
+    .catch((error) => error as AxiosError);
+};
+
+export const deleteImages = async (key: string) => {
+  return await userRequest
+    .delete(`images/delete`, { data: { keys: [{ Key: key }] } })
     .then((res) => res)
     .catch((error) => error as AxiosError);
 };
