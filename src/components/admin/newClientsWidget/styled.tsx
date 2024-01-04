@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
 export const NewClientsWidgetContainer = styled.div`
-  flex: 1;
   padding: 2rem;
   border: 1px solid var(--border);
   border-radius: 1rem;
   margin: 0;
-  margin-right: 2rem;
 
   .newClientsWidgetTitle {
     font-size: 22px;

@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
@@ -19,32 +16,34 @@ export default function UserList() {
   useEffect(() => {
     const newData: TCurrentUser[] = [
       {
-        _id: "657cb1ff35c1160bf62980c4",
-        username: "deinha123",
-        email: "deinha123@gmail.com",
-        password: "$2b$08$m5zQEYyA7NIolSxeNrvac.Ko/3awsduCr9T8fBeBg5LfnuMbsiR16",
+        _id: '657cb1ff35c1160bf62980c4',
+        username: 'deinha123',
+        email: 'deinha123@gmail.com',
+        password:
+          '$2b$08$m5zQEYyA7NIolSxeNrvac.Ko/3awsduCr9T8fBeBg5LfnuMbsiR16',
         isAdmin: false,
         phone: '(51)912345678',
         passwordChangedAt: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
-        __v: 0
+        __v: 0,
       },
       {
-        _id: "658742b423789299f2467cbc",
-        username: "guigui1234",
-        email: "guisalmeida.dev@gmail.com",
-        password: "$2b$08$x8mvCC0A191Qb4CUWk8yHeHEzWZo9vohgSCzVgGjqPSWQgleHBHjO",
+        _id: '658742b423789299f2467cbc',
+        username: 'guigui1234',
+        email: 'guisalmeida.dev@gmail.com',
+        password:
+          '$2b$08$x8mvCC0A191Qb4CUWk8yHeHEzWZo9vohgSCzVgGjqPSWQgleHBHjO',
         isAdmin: true,
         phone: '(51)912345678',
         passwordChangedAt: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
-        __v: 0
-      }
-    ]
-    setData(newData)
-  }, [])
+        __v: 0,
+      },
+    ];
+    setData(newData);
+  }, []);
 
   const columns: GridColDef[] = [
     { field: '_id', headerName: 'ID', width: 220 },
@@ -54,12 +53,10 @@ export default function UserList() {
       width: 100,
       renderCell: (params: {
         row: {
-          username: string
+          username: string;
         };
       }) => {
-        return (
-          <div className="userListUser">{params.row.username}</div>
-        );
+        return <div className="userListUser">{params.row.username}</div>;
       },
     },
     { field: 'email', headerName: 'Email', width: 200 },
@@ -69,9 +66,9 @@ export default function UserList() {
       field: 'edit',
       headerName: 'Editar',
       width: 100,
-      renderCell: (params: { row: { id: string } }) => {
+      renderCell: (params: { row: { _id: string } }) => {
         return (
-          <Link to={'/user/' + params.row.id}>
+          <Link to={'/admin/users/' + params.row._id}>
             <button className="userListEdit">Editar</button>
           </Link>
         );
@@ -81,11 +78,12 @@ export default function UserList() {
       field: 'delete',
       headerName: 'Deletar',
       width: 100,
-      renderCell: (params: { row: { id: string } }) => {
+      renderCell: (params: { row: { _id: string } }) => {
         return (
           <button
             className="userListDelete"
-            onClick={() => handleDelete(params.row.id)}>
+            onClick={() => handleDelete(params.row._id)}
+          >
             <PersonDeleteIcon />
           </button>
         );

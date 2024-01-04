@@ -228,14 +228,14 @@ export default function EditProduct() {
 
   return (
     <NewProductContainer>
-      <h1 className="edit-product__Title">
+      <h1 className="edit-product__title">
         {productId && productId === 'new'
           ? `Novo Produto`
           : `Produto ${newProduct?.name}`}
       </h1>
 
       <form className="edit-product__Form" onSubmit={handleSubmit}>
-        <div className="edit-product__Item">
+        <div className="edit-product__item">
           <label>Imagens</label>
 
           {files && files.length > 0
@@ -285,7 +285,7 @@ export default function EditProduct() {
           </div>
         </div>
 
-        <div className="edit-product__Item">
+        <div className="edit-product__item">
           <label>Nome</label>
           <input
             name="name"
@@ -297,7 +297,7 @@ export default function EditProduct() {
           />
         </div>
 
-        <div className="edit-product__Item">
+        <div className="edit-product__item">
           <label>Descrição</label>
           <input
             name="description"
@@ -309,7 +309,7 @@ export default function EditProduct() {
           />
         </div>
 
-        <div className="edit-product__Item">
+        <div className="edit-product__item">
           <label>Preço</label>
           <input
             name="price"
@@ -320,9 +320,9 @@ export default function EditProduct() {
           />
         </div>
 
-        <div className="edit-product__Item">
+        <div className="edit-product__item">
           <label>Promoção</label>
-          <div className="edit-product__Item--radio">
+          <div className="edit-product__item--radio">
             <input
               type="radio"
               id="yes"
@@ -346,7 +346,7 @@ export default function EditProduct() {
         </div>
 
         {newProduct?.onSale === true ? (
-          <div className="edit-product__Item">
+          <div className="edit-product__item">
             <label>Desconto (%)</label>
             <input
               name="discount"
@@ -359,7 +359,7 @@ export default function EditProduct() {
         ) : null}
 
         {newProduct?.onSale === true ? (
-          <div className="edit-product__Item">
+          <div className="edit-product__item">
             <label>Preço antigo</label>
             <input
               name="oldPrice"
@@ -371,7 +371,7 @@ export default function EditProduct() {
           </div>
         ) : null}
 
-        <div className="edit-product__Item">
+        <div className="edit-product__item">
           <label>Categorias</label>
           <input
             name="categories"
@@ -383,7 +383,7 @@ export default function EditProduct() {
           />
         </div>
 
-        <div className="edit-product__Item">
+        <div className="edit-product__item">
           <label>Cor</label>
           <input
             name="colors"
@@ -395,10 +395,10 @@ export default function EditProduct() {
           />
         </div>
 
-        <div className="edit-product__Item">
+        <div className="edit-product__item">
           <label>Em estoque</label>
 
-          <div className="edit-product__Item--radio">
+          <div className="edit-product__item--radio">
             <input
               type="radio"
               id="yes"
@@ -422,7 +422,7 @@ export default function EditProduct() {
         </div>
 
         {newProduct?.inStock === true ? (
-          <div className="edit-product__Item">
+          <div className="edit-product__item">
             <label>Quatidade</label>
             <input
               name="quantity"
@@ -434,7 +434,7 @@ export default function EditProduct() {
           </div>
         ) : null}
 
-        {/* <div className="edit-product__Item">
+        {/* <div className="edit-product__item">
           <label>Tamanhos</label>
           <input
             name="sizes"
@@ -447,7 +447,7 @@ export default function EditProduct() {
 
         <Button
           type="submit"
-          className="edit-product__Button"
+          className="edit-product__button"
           isLoading={false}
           buttonType="highlight"
         >

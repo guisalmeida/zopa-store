@@ -12,19 +12,19 @@ export const NewUserContainer = styled.div`
 
   margin: 2rem;
 
-  .newUserTitle {
+  .edit-user__title {
     font-size: 2rem;
     font-weight: bolder;
     border-bottom: 1px solid var(--dark);
     margin: 0 0 1rem;
   }
 
-  .newUserForm {
+  .edit-user__form {
     display: flex;
     flex-wrap: wrap;
   }
 
-  .newUserItem {
+  .edit-user__item {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -32,38 +32,28 @@ export const NewUserContainer = styled.div`
     margin-right: 20px;
   }
 
-  .newUserItem > label {
+  .edit-user__item > label {
     margin-bottom: 0.5rem;
     font-size: 1rem;
     font-weight: 600;
     color: var(--dark);
   }
 
-  .newUserItem > input {
+  .edit-user__item > input {
     height: 2rem;
     padding: 1rem;
     border: 1px solid var(--border);
     border-radius: 0.5rem;
   }
 
-  .newUserSelect {
-    height: 2rem;
-    padding: 0 1rem;
-    border-radius: 0.5rem;
-  }
-
-  .newUserButton {
-    width: 100%;
-    max-width: 400px;
+  .edit-user__button {
+    margin-top: 1rem;
     padding: 0.5rem 1rem;
-    color: var(--white);
-    background-color: var(--highlight);
     border: none;
+    border-radius: 1rem;
+    background-color: var(--highlight);
+    color: var(--white);
     font-weight: 600;
-    border-radius: 0.5rem;
-    margin-top: 2rem;
     cursor: pointer;
-    height: 2rem;
-    align-self: end;
   }
 `;

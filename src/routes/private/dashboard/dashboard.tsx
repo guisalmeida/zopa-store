@@ -8,11 +8,10 @@ export default function Dashboard() {
   return (
     <DashboardContainer>
       <FeaturedInfo />
+      <LatestTransactionsWidget />
+      <NewClientsWidget />
+
       {/* <Chart data={userStats} title="Analytics" grid dataKey="Active User" /> */}
-      <div className="homeWidgets">
-        <NewClientsWidget />
-        <LatestTransactionsWidget />
-      </div>
     </DashboardContainer>
   );
 }

@@ -30,10 +30,10 @@ export default function Sidebar() {
 
           <h3 className="sidebarTitle">Usuários</h3>
           <ul className="sidebarList">
-            <Link to="/admin/new-user" className="link">
+            <Link to="/admin/users/new" className="link">
               <li
                 className={`sidebarListItem ${
-                  params['*'] === 'new-user' ? 'active' : ''
+                  params['*'] === '/admin/products/new' ? 'active' : ''
                 }`}
               >
                 Novo

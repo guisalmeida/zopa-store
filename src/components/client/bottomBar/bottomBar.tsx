@@ -5,7 +5,7 @@ const BottomBar = (): React.JSX.Element => {
     <Footer>
       <div className="footer__content container">
         <p>
-          © 2023 Zopa Clothing. Desenvolvido por{' '}
+          © 2024 Zopa Clothing. Desenvolvido por{' '}
           <a
             href="https://www.guisalmeida.com"
             target="_blank"

@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 export const LatestTransactionsWidgetContainer = styled.div`
-  flex: 2;
   padding: 2rem;
   border: 1px solid var(--border);
   border-radius: 1rem;
-  margin: 0;
+  margin: 1rem 0;
 
   .latestTransactionsWidgetTitle {
     font-size: 22px;

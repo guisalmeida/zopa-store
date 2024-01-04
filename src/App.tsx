@@ -20,7 +20,7 @@ const Checkout = lazy(() => import('./routes/private/checkout'));
 const User = lazy(() => import('./routes/private/user'));
 const Admin = lazy(() => import('./routes/private/admin'));
 const Dashboard = lazy(() => import('./routes/private/dashboard'));
-const NewUser = lazy(() => import('./routes/private/newUser'));
+const EditUser = lazy(() => import('./routes/private/editUser'));
 const UserList = lazy(() => import('./routes/private/userList'));
 const ProductList = lazy(() => import('./routes/private/productList'));
 const EditProduct = lazy(() => import('./routes/private/editProduct'));
@@ -61,10 +61,10 @@ function App() {
           <Route element={<AdminRoutes />}>
             <Route path="admin/*" element={<Admin />}>
               <Route index element={<Dashboard />} />
-              <Route path="new-user" element={<NewUser />} />
               <Route path="users" element={<UserList />} />
-              <Route path="products/:productId" element={<EditProduct />} />
+              <Route path="users/:userId" element={<EditUser />} />
               <Route path="products" element={<ProductList />} />
+              <Route path="products/:productId" element={<EditProduct />} />
               <Route
                 path="transactions"
                 element={<h1>Página ainda não disponível</h1>}

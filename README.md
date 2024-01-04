@@ -4,16 +4,18 @@ https://zopa-clothing.netlify.app/
 
 ### Todo / Issues / Upcoming features
 
-- [x] Private route admin;
-- [x] Create sold out feat product page;
-- [x] FIX form select default value;
-- [ ] FIX localstorage get token;
-- [ ] FIX product register sizes;
-- [ ] FIX TS-ignore;
-- [ ] Create user auth validation when already logged in;
-- [ ] Improve admin page mobile;
-- [ ] Improve user details page;
-- [ ] Finish user list admin crud;
+- [x] Feat:Private route admin;
+- [x] Feat: Create sold out feat product page;
+- [x] Fix: form select default value;
+- [ ] Fix: localstorage get token;
+- [ ] Fix: product register sizes;
+- [ ] Fix: TS-ignore;
+- [ ] Feat: Create user auth validation when already logged in;
+- [ ] Feat: Create stock quantity and manage with each size;
+- [ ] Feat: Improve admin page mobile;
+- [ ] Feat: Improve user details page;
+- [ ] Feat: Finish user list admin crud;
+- [ ] Test: e2e and accessibility;
 
 ### Tools
 

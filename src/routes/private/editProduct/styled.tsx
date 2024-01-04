@@ -14,7 +14,7 @@ export const NewProductContainer = styled.div`
 
   margin: 2rem;
 
-  .edit-product__Title {
+  .edit-product__title {
     font-size: 2rem;
     font-weight: bolder;
     border-bottom: 1px solid var(--dark);
@@ -25,21 +25,21 @@ export const NewProductContainer = styled.div`
     margin-top: 1rem;
   }
 
-  .edit-product__Item {
+  .edit-product__item {
     width: 100%;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
   }
 
-  .edit-product__Item > label {
+  .edit-product__item > label {
     margin-bottom: 0.5rem;
     font-size: 1rem;
     font-weight: 600;
     color: var(--dark);
   }
 
-  .edit-product__Item > input:not([type='file']) {
+  .edit-product__item > input:not([type='file']) {
     height: 2rem;
     padding: 1rem;
     border: 1px solid var(--border);
@@ -91,7 +91,7 @@ export const NewProductContainer = styled.div`
     border-radius: 0.5rem;
   }
 
-  .edit-product__Button {
+  .edit-product__button {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     border: none;
