@@ -20,7 +20,7 @@ const BASE_PRODUCT: TProduct = {
   name: '',
   description: '',
   onSale: false,
-  quantity: 1,
+  quantity: 0,
   categories: [],
   discount: 0,
   price: 0,
@@ -84,10 +84,10 @@ export default function EditProduct() {
     });
   };
 
-  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    setNewProduct((prev) => {
+  const handleSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewProduct((prevProd) => {
       const bool = e.target.value === 'true' ? true : false;
-      return { ...prev, [e.target.name]: bool };
+      return { ...prevProd, [e.target.name]: bool };
     });
   };
 
@@ -310,17 +310,6 @@ export default function EditProduct() {
         </div>
 
         <div className="edit-product__Item">
-          <label>Quatidade</label>
-          <input
-            name="quantity"
-            type="number"
-            placeholder="100"
-            value={newProduct?.quantity}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="edit-product__Item">
           <label>Preço</label>
           <input
             name="price"
@@ -330,6 +319,44 @@ export default function EditProduct() {
             onChange={handleChange}
           />
         </div>
+
+        <div className="edit-product__Item">
+          <label>Promoção</label>
+          <div className="edit-product__Item--radio">
+            <input
+              type="radio"
+              id="yes"
+              name="onSale"
+              value="true"
+              checked={newProduct?.onSale.toString() === 'true'}
+              onChange={handleSelect}
+            />
+            <label htmlFor="yes">Sim</label>
+
+            <input
+              type="radio"
+              id="no"
+              name="onSale"
+              value="false"
+              onChange={handleSelect}
+              checked={newProduct?.onSale.toString() === 'false'}
+            />
+            <label htmlFor="no">Não</label>
+          </div>
+        </div>
+
+        {newProduct?.onSale === true ? (
+          <div className="edit-product__Item">
+            <label>Desconto (%)</label>
+            <input
+              name="discount"
+              type="number"
+              placeholder="50"
+              value={newProduct?.discount}
+              onChange={handleChange}
+            />
+          </div>
+        ) : null}
 
         {newProduct?.onSale === true ? (
           <div className="edit-product__Item">
@@ -356,17 +383,6 @@ export default function EditProduct() {
           />
         </div>
 
-        {/* <div className="edit-product__Item">
-          <label>Tamanhos</label>
-          <input
-            name="sizes"
-            type="text"
-            placeholder="P,M,G,GG"
-            value={newProduct.sizes[0]["size"]}
-            onChange={handleChange}
-          />
-        </div> */}
-
         <div className="edit-product__Item">
           <label>Cor</label>
           <input
@@ -380,43 +396,54 @@ export default function EditProduct() {
         </div>
 
         <div className="edit-product__Item">
-          <label>Promoção</label>
-          <select
-            className="edit-product__Select"
-            name="onSale"
-            onChange={handleSelect}
-            defaultValue={String(newProduct?.onSale)}
-          >
-            <option value="true">Sim</option>
-            <option value="false">Não</option>
-          </select>
+          <label>Em estoque</label>
+
+          <div className="edit-product__Item--radio">
+            <input
+              type="radio"
+              id="yes"
+              name="inStock"
+              value="true"
+              checked={newProduct?.inStock.toString() === 'true'}
+              onChange={handleSelect}
+            />
+            <label htmlFor="yes">Sim</label>
+
+            <input
+              type="radio"
+              id="no"
+              name="inStock"
+              value="false"
+              onChange={handleSelect}
+              checked={newProduct?.inStock.toString() === 'false'}
+            />
+            <label htmlFor="no">Não</label>
+          </div>
         </div>
 
-        {newProduct?.onSale === true ? (
+        {newProduct?.inStock === true ? (
           <div className="edit-product__Item">
-            <label>Desconto (%)</label>
+            <label>Quatidade</label>
             <input
-              name="discount"
+              name="quantity"
               type="number"
-              placeholder="50"
-              value={newProduct?.discount}
+              placeholder="100"
+              value={newProduct?.quantity}
               onChange={handleChange}
             />
           </div>
         ) : null}
 
-        <div className="edit-product__Item">
-          <label>Em estoque</label>
-          <select
-            className="edit-product__Select"
-            name="inStock"
-            onChange={handleSelect}
-            defaultValue={String(newProduct?.inStock)}
-          >
-            <option value="true">Sim</option>
-            <option value="false">Não</option>
-          </select>
-        </div>
+        {/* <div className="edit-product__Item">
+          <label>Tamanhos</label>
+          <input
+            name="sizes"
+            type="text"
+            placeholder="P,M,G,GG"
+            value={newProduct.sizes[0]["size"]}
+            onChange={handleChange}
+          />
+        </div> */}
 
         <Button
           type="submit"
