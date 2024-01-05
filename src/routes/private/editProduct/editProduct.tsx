@@ -14,7 +14,12 @@ import { selectAllProducts } from '../../../store/selectors/productsSelectors';
 import { fetchProductsStart } from '../../../store/actions/productsActions';
 
 import Button from '../../../components/client/button';
-import { NewProductContainer, PublishIcon, RemoveImageIcon } from './styled';
+import {
+  AddPhotoAlternateIcon,
+  NewProductContainer,
+  PublishIcon,
+  RemoveImageIcon,
+} from './styled';
 
 const BASE_PRODUCT: TProduct = {
   name: '',
@@ -152,6 +157,9 @@ export default function EditProduct() {
   };
 
   const handleImageUploadS3 = async () => {
+    if (files === null) {
+      return;
+    }
     setIsLoading(true);
     const formData = new FormData();
 
@@ -238,12 +246,6 @@ export default function EditProduct() {
         <div className="edit-product__item">
           <label>Imagens</label>
 
-          {files && files.length > 0
-            ? Object.entries(files as FileList).map((file, index) => {
-                return <p key={index}>{file[1].name}</p>;
-              })
-            : null}
-
           {newProduct?.images && newProduct?.images?.length > 0 ? (
             <div className="edit-product__images">
               {newProduct.images.map((image, index) => {
@@ -251,6 +253,7 @@ export default function EditProduct() {
                   <figure key={index}>
                     <button
                       type="button"
+                      title="Remover imagem"
                       onClick={() => handleDeleteImage(image)}
                     >
                       <RemoveImageIcon />
@@ -262,27 +265,43 @@ export default function EditProduct() {
             </div>
           ) : null}
 
-          <div className="edit-product__image--container">
-            <label htmlFor="file" className="edit-product__label">
-              <PublishIcon /> Selecionar Imagens
-            </label>
-            <input
-              type="file"
-              id="file"
-              onChange={onImageChange}
-              accept=".jpg, .jpeg, .png"
-              multiple
-            />
+          <label htmlFor="file" className="edit-product__label">
+            <AddPhotoAlternateIcon />
+            <span>Clique para selecionar imagens</span>
+            <p className="edit-product__label--files-accept">
+              (Somente até 3 arquivos nos formatos: .jpg, .jpeg, .png)
+            </p>
+            {files && files.length > 0
+              ? Object.entries(files as FileList).map((file, index) => {
+                  return (
+                    <p
+                      className="edit-product__label--files-selected"
+                      key={index}
+                    >
+                      {file[1].name}
+                    </p>
+                  );
+                })
+              : null}
+          </label>
+          <input
+            type="file"
+            id="file"
+            onChange={onImageChange}
+            accept=".jpg, .jpeg, .png"
+            multiple
+          />
 
-            <Button
-              type="button"
-              onClick={handleImageUploadS3}
-              isLoading={isLoading}
-              buttonType="highlight"
-            >
-              Carregar Imagens
-            </Button>
-          </div>
+          <Button
+            type="button"
+            disabled={files === null}
+            onClick={handleImageUploadS3}
+            isLoading={isLoading}
+            buttonType="highlight"
+            className="edit-product__label--button"
+          >
+            <PublishIcon /> Salvar Imagens
+          </Button>
         </div>
 
         <div className="edit-product__item">

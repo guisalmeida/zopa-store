@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Publish } from '@styled-icons/material/Publish';
+import { AddPhotoAlternate } from '@styled-icons/material/AddPhotoAlternate';
 import { CloseCircle } from '@styled-icons/remix-fill/CloseCircle';
 
 export const NewProductContainer = styled.div`
@@ -47,41 +48,52 @@ export const NewProductContainer = styled.div`
   }
 
   .edit-product__image--container {
-    width: 100%;
+  }
+
+  input[type='file'] {
+    display: none;
+  }
+
+  label.edit-product__label {
+    background-color: var(--white);
+    color: var(--grey);
+    cursor: pointer;
+    border: 2px dotted var(--grey);
+    border-radius: 0.5rem;
+    transition: all ease 0.3s;
+    min-height: 8rem;
+    height: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin: 1rem 0;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 1rem;
+    width: 100%;
+    padding: 1rem;
 
-    input[type='file'] {
-      display: none;
+    p.edit-product__label--files-accept {
+      font-size: 0.75rem;
+      font-weight: 400;
+      margin: 0.25rem 0;
     }
 
-    label.edit-product__label {
-      background-color: var(--highlight);
+    p.edit-product__label--files-selected {
+      font-weight: 400;
+      font-size: 0.75rem;
+      color: var(--highlight);
+      margin: 0.25rem 0;
+    }
+  }
+
+  button.edit-product__label--button {
+    width: 100%;
+
+    &:disabled {
+      background-color: var(--grey);
       color: var(--white);
-      cursor: pointer;
-      border-radius: 0.5rem;
-      transition: all ease 0.3s;
-      height: 3rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-transform: uppercase;
-      font-weight: bolder;
-      font-size: 1rem;
-      width: calc(50% - 1rem);
-
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--grey);
-          color: var(--black);
-        }
-      }
-    }
-
-    button {
-      width: calc(50% - 1rem);
+      cursor: not-allowed;
     }
   }
 
@@ -95,7 +107,6 @@ export const NewProductContainer = styled.div`
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     border: none;
-    border-radius: 1rem;
     background-color: var(--highlight);
     color: var(--white);
     font-weight: 600;
@@ -143,4 +154,10 @@ export const RemoveImageIcon = styled(CloseCircle)`
   width: 1.5rem;
   color: var(--highlight);
   border-radius: 1rem;
+`;
+
+export const AddPhotoAlternateIcon = styled(AddPhotoAlternate)`
+  color: var(--grey);
+  width: 2rem;
+  display: block;
 `;

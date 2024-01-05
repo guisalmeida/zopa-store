@@ -8,7 +8,7 @@ https://zopa-clothing.netlify.app/
 - [x] Feat: Create sold out feat product page;
 - [x] Fix: form select default value;
 - [ ] Fix: localstorage get token;
-- [ ] Fix: product register sizes;
+- [ ] Fix(admin product page): Register sizes;
 - [ ] Fix: TS-ignore;
 - [ ] Feat: Create user auth validation when already logged in;
 - [ ] Feat: Create stock quantity and manage with each size;
