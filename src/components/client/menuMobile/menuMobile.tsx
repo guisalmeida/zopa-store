@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setIsMobileOpen, signOutStart } from '../../../store/actions/userActions';
+import {
+  setIsMobileOpen,
+  signOutStart,
+} from '../../../store/actions/userActions';
 import {
   selectCurrentUser,
   selectIsMobileOpen,
@@ -42,6 +45,15 @@ const MenuMobile = (): React.JSX.Element => {
                 Admin
               </Link>
             ) : null}
+          </li>
+          <li>
+            <Link
+              to="/"
+              title="Ir para página inicial"
+              onClick={toggleMobileMenu}
+            >
+              Home
+            </Link>
           </li>
           <li>
             <Link to="/shop" onClick={toggleMobileMenu}>

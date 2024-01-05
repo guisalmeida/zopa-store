@@ -7,10 +7,12 @@ import Carousel from '../../../components/client/carousel/carousel';
 import ProductsList from '../../../components/client/productsList';
 import Spinner from '../../../components/client/spinner/spinner';
 import { TProduct } from '../../../types';
+import FeatureWidget from '../../../components/client/featureWidget';
 
 const Home = (): React.JSX.Element => {
   const products: TProduct[] = useSelector(selectAllProducts);
   const isLoading: boolean = useSelector(selectIsLoading);
+  console.log(products);
 
   return (
     <>
@@ -19,7 +21,8 @@ const Home = (): React.JSX.Element => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <ProductsList products={products} category={''} />
+        <FeatureWidget products={products} />
+        // <ProductsList products={products} category={''} />
       )}
     </>
   );

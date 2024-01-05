@@ -19,7 +19,6 @@ export const CarouselContainer = styled.div`
 
     .swiper-button-prev,
     .swiper-button-next {
-      /* display: none; */
       color: white;
     }
   }

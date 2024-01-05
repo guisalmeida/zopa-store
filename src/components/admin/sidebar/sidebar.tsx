@@ -33,7 +33,7 @@ export default function Sidebar() {
             <Link to="/admin/users/new" className="link">
               <li
                 className={`sidebarListItem ${
-                  params['*'] === '/admin/products/new' ? 'active' : ''
+                  params['*'] === 'users/new' ? 'active' : ''
                 }`}
               >
                 Novo
@@ -56,7 +56,7 @@ export default function Sidebar() {
             <Link to="/admin/products/new" className="link">
               <li
                 className={`sidebarListItem ${
-                  params['*'] === 'product' ? 'active' : ''
+                  params['*'] === 'products/new' ? 'active' : ''
                 }`}
               >
                 Novo
