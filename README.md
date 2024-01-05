@@ -7,6 +7,7 @@ https://zopa-clothing.netlify.app/
 - [x] Feat:Private route admin;
 - [x] Feat: Create sold out feat product page;
 - [x] Fix: form select default value;
+- [x] Feat: Finish user list admin crud;
 - [ ] Fix: localstorage get token;
 - [ ] Fix(admin product page): Register sizes;
 - [ ] Fix: TS-ignore;
@@ -14,7 +15,6 @@ https://zopa-clothing.netlify.app/
 - [ ] Feat: Create stock quantity and manage with each size;
 - [ ] Feat: Improve admin page mobile;
 - [ ] Feat: Improve user details page;
-- [ ] Feat: Finish user list admin crud;
 - [ ] Test: e2e and accessibility;
 
 ### Tools
