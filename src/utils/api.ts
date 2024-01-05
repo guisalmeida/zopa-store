@@ -54,6 +54,29 @@ export const getProductsList = async (
   }
 };
 
+export const getUsersList = async (
+  limit?: number
+): Promise<TCurrentUser[] | Error | AxiosError> => {
+  const params: { limit?: number } = {};
+  if (limit) params.limit = limit;
+
+  try {
+    const { data } = await userRequest.get<TCurrentUser[]>('/users', {
+      params,
+    });
+
+    return data;
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      const error = e as AxiosError;
+      return error;
+    } else {
+      const error = e as Error;
+      return error;
+    }
+  }
+};
+
 export const signInUser = async (
   email: string,
   password: string

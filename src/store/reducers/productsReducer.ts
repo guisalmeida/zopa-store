@@ -27,13 +27,17 @@ export const productsReducer = (
       ...state,
       isLoading: true,
     };
-  } else if (fetchProductsSuccess.match(action)) {
+  }
+
+  if (fetchProductsSuccess.match(action)) {
     return {
       ...state,
       allProducts: action.payload,
       isLoading: false,
     };
-  } else if (fetchProductsFailed.match(action)) {
+  }
+
+  if (fetchProductsFailed.match(action)) {
     return {
       ...state,
       error: action.payload,

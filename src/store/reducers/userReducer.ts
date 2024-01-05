@@ -9,11 +9,15 @@ import {
   signInFailed,
   updateSuccess,
   deleteSuccess,
+  fetchUsersStart,
+  fetchUsersSuccess,
+  fetchUsersFailed,
 } from '../actions/userActions';
 import { TCurrentUser } from '../../types';
 
 export type TUserState = {
   readonly currentUser: TCurrentUser | null;
+  readonly allUsers: TCurrentUser[];
   readonly isMobileOpen: boolean;
   readonly isLoading: boolean;
   readonly error: Error | null;
@@ -21,6 +25,7 @@ export type TUserState = {
 
 const INITIAL_STATE: TUserState = {
   currentUser: null,
+  allUsers: [],
   isMobileOpen: false,
   isLoading: false,
   error: null,
@@ -41,6 +46,7 @@ export const userReducer = (
     return {
       ...state,
       currentUser: action.payload,
+      isLoading: false,
     };
   }
 
@@ -48,16 +54,34 @@ export const userReducer = (
     return {
       ...state,
       currentUser: null,
+      isLoading: false,
+    };
+  }
+
+  if (fetchUsersStart.match(action)) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+
+  if (fetchUsersSuccess.match(action)) {
+    return {
+      ...state,
+      allUsers: action.payload,
+      isLoading: false,
     };
   }
 
   if (
     signInFailed.match(action) ||
     signUpFailed.match(action) ||
-    signOutFailed.match(action)
+    signOutFailed.match(action) ||
+    fetchUsersFailed.match(action)
   ) {
     return {
       ...state,
+      isLoading: false,
       error: action.payload,
     };
   }

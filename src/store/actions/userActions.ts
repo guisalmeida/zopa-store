@@ -73,6 +73,20 @@ export type TDeleteFailed = TActionWithPayload<
   Error
 >;
 
+export type TFetchUsersStart = TAction<
+  typeof USER_ACTION_TYPE.FETCH_USERS_START
+>;
+
+export type TFetchUsersSuccess = TActionWithPayload<
+  typeof USER_ACTION_TYPE.FETCH_USERS_SUCCESS,
+  TCurrentUser[]
+>;
+
+export type TFetchUsersFailed = TActionWithPayload<
+  typeof USER_ACTION_TYPE.FETCH_USERS_FAILED,
+  AxiosError
+>;
+
 export const setIsMobileOpen = withMatcher(
   (bool: boolean): TSetIsMobileOpen =>
     createAction(USER_ACTION_TYPE.SET_IS_MOBILE_OPEN, bool)
@@ -164,4 +178,18 @@ export const deleteSuccess = withMatcher(
 export const deleteFailed = withMatcher(
   (error: Error): TDeleteFailed =>
     createAction(USER_ACTION_TYPE.DELETE_FAILED, error)
+);
+
+export const fetchUsersStart = withMatcher(
+  (): TFetchUsersStart => createAction(USER_ACTION_TYPE.FETCH_USERS_START)
+);
+
+export const fetchUsersSuccess = withMatcher(
+  (users: TCurrentUser[]): TFetchUsersSuccess =>
+    createAction(USER_ACTION_TYPE.FETCH_USERS_SUCCESS, users)
+);
+
+export const fetchUsersFailed = withMatcher(
+  (error: AxiosError): TFetchUsersFailed =>
+    createAction(USER_ACTION_TYPE.FETCH_USERS_FAILED, error)
 );

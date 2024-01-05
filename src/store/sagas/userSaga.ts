@@ -17,16 +17,38 @@ import {
   updateSuccess,
   deleteSuccess,
   updateFailed,
+  fetchUsersFailed,
+  fetchUsersSuccess,
 } from '../actions/userActions';
 
 import {
   deleteUser,
+  getUsersList,
   signInUser,
   signUpUser,
   updateUser,
 } from '../../utils/api';
 import axios, { AxiosError } from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { TCurrentUser } from '../../types';
+
+export function* fetchUsersSaga() {
+  try {
+    const users = yield* call(getUsersList);
+
+    if (axios.isAxiosError(users)) {
+      yield* put(fetchUsersFailed(users.response?.data as AxiosError));
+    } else if (users) {
+      yield* put(fetchUsersSuccess(users as TCurrentUser[]));
+    }
+  } catch (error) {
+    yield* put(fetchUsersFailed(error as AxiosError));
+  }
+}
+
+export function* onFetchUsers() {
+  yield* takeLatest('FETCH_USERS_START', fetchUsersSaga);
+}
 
 export function* signInSaga({ payload: { email, password } }: TSignInStart) {
   try {
@@ -89,21 +111,6 @@ export function* updateUserSaga({
 export function* onUpdateStart() {
   yield* takeLatest('UPDATE_START', updateUserSaga);
 }
-
-// export function* isUserAuthenticated() {
-//   try {
-//     const isUserAuth = yield* call(verifyToken, 'token')
-//     if (isUserAuth.name === 'TokenExpiredError') {
-//       yield* put(signInFailed(isUserAuth.message as VerifyErrors))
-//     }
-//   } catch (error) {
-//     yield* put(signInFailed(error as AxiosError))
-//   }
-// }
-
-// export function* onCheckUserSession() {
-//   yield* takeLatest('CHECK_USER_SESSION', isUserAuthenticated)
-// }
 
 export function* signOutSaga() {
   try {
@@ -176,6 +183,21 @@ export function* onDeleteFailed() {
   yield* takeLatest('DELETE_FAILED', showError);
 }
 
+// export function* isUserAuthenticated() {
+//   try {
+//     const isUserAuth = yield* call(verifyToken, 'token')
+//     if (isUserAuth.name === 'TokenExpiredError') {
+//       yield* put(signInFailed(isUserAuth.message as VerifyErrors))
+//     }
+//   } catch (error) {
+//     yield* put(signInFailed(error as AxiosError))
+//   }
+// }
+
+// export function* onCheckUserSession() {
+//   yield* takeLatest('CHECK_USER_SESSION', isUserAuthenticated)
+// }
+
 export function* userSaga() {
   yield* all([
     call(onUpdateStart),
@@ -187,5 +209,6 @@ export function* userSaga() {
     call(onSignUpFailed),
     call(onSignOutFailed),
     call(onDeleteFailed),
+    call(onFetchUsers),
   ]);
 }

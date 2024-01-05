@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
 import { fetchProductsStart } from './store/actions/productsActions';
-import { checkUserSession } from './store/actions/userActions';
+import { checkUserSession, fetchUsersStart } from './store/actions/userActions';
 import Spinner from './components/client/spinner/spinner';
 import AdminRoutes from './utils/adminRoutes';
 import LoggedRoutes from './utils/loggedRoutes';
@@ -28,12 +28,16 @@ const EditProduct = lazy(() => import('./routes/private/editProduct'));
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(checkUserSession());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(checkUserSession());
+  // }, []);
 
   useEffect(() => {
     dispatch(fetchProductsStart());
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchUsersStart());
   }, []);
 
   return (

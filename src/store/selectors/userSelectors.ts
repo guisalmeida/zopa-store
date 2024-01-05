@@ -9,6 +9,16 @@ export const selectCurrentUser = createSelector(
   (user) => user.currentUser
 );
 
+export const selectAllUsers = createSelector(
+  [selectUserReducer],
+  (user) => user.allUsers
+);
+
+export const selectIsLoading = createSelector(
+  [selectUserReducer],
+  (user) => user.isLoading
+);
+
 export const selectIsMobileOpen = createSelector(
   [selectUserReducer],
   (user) => user.isMobileOpen
