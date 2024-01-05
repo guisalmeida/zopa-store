@@ -20,12 +20,14 @@ const defaultFormFields = {
   phone: '',
   password: '',
   confirmPassword: '',
+  isAdmin: false,
 };
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { username, email, phone, password, confirmPassword } = formFields;
+  const { username, email, phone, password, confirmPassword, isAdmin } =
+    formFields;
   const currentUser = useSelector(selectCurrentUser);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -53,11 +55,13 @@ const SignUpForm = () => {
       return;
     }
 
-    dispatch(signUpStart(email, phone, password, username));
+    dispatch(signUpStart(email, phone, password, username, isAdmin));
     resetForm();
   };
 
-  return currentUser ? <Navigate to="/user" /> :
+  return currentUser ? (
+    <Navigate to="/user" />
+  ) : (
     <SignContainer>
       <h2>Criar conta com email e senha</h2>
       <h2>
@@ -122,6 +126,7 @@ const SignUpForm = () => {
         </ButtonsContainer>
       </form>
     </SignContainer>
+  );
 };
 
 export default SignUpForm;
