@@ -12,23 +12,21 @@ import FormInput from '../../../components/client/formInput';
 import {
   SignContainer,
   ButtonsContainer,
-  AuthenticationContainer
+  AuthenticationContainer,
 } from '../../public/authentication/styled';
 import { ButtonsContainerWarn } from './styled';
+import { TCurrentUser } from '../../../types';
 
 const User = (): React.JSX.Element => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-  const userToUpdate = {
-    username: currentUser?.username ? currentUser.username : '',
-    email: currentUser?.email ? currentUser.email : '',
-    password: '',
-    confirmPassword: '',
-  };
-  const [updatedUser, setUpdatedUser] = useState(userToUpdate);
+
+  const [updatedUser, setUpdatedUser] = useState<TCurrentUser>(
+    currentUser as TCurrentUser
+  );
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const { name, value }: { name: string; value: string } = event.target;
+    const { name, value } = event.target;
 
     setUpdatedUser((prevState) => {
       return { ...prevState, [name]: value };
@@ -40,7 +38,7 @@ const User = (): React.JSX.Element => {
   };
 
   const handleDelete = (): void => {
-    dispatch(deleteStart());
+    dispatch(deleteStart(updatedUser._id as string));
   };
 
   const handleSubmit = async (
@@ -49,7 +47,7 @@ const User = (): React.JSX.Element => {
     event.preventDefault();
 
     if (updatedUser) {
-      dispatch(updateStart(updatedUser.email, updatedUser.username));
+      dispatch(updateStart(updatedUser));
     }
   };
 
@@ -76,6 +74,16 @@ const User = (): React.JSX.Element => {
             value={updatedUser?.email}
             placeholder="Digite seu email..."
             onChange={handleChange}
+            disabled
+          />
+
+          <FormInput
+            label="Telefone"
+            type="phone"
+            name="phone"
+            value={updatedUser?.phone}
+            placeholder="Digite seu telefone.."
+            onChange={handleChange}
             required
           />
 
@@ -84,17 +92,7 @@ const User = (): React.JSX.Element => {
             type="password"
             name="password"
             value={updatedUser.password}
-            placeholder="Digite uma senha..."
-            onChange={handleChange}
-            required
-          />
-
-          <FormInput
-            label="Confirme senha"
-            type="password"
-            name="confirmPassword"
-            placeholder="Repita sua senha..."
-            value={updatedUser.confirmPassword}
+            placeholder="Digite uma nova senha..."
             onChange={handleChange}
             required
           /> */}

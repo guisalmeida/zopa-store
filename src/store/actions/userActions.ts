@@ -1,6 +1,6 @@
 import { USER_ACTION_TYPE, TActionWithPayload, TAction } from './actionTypes';
 import { createAction, withMatcher } from '../../utils/actions';
-import { TCurrentUser } from '../../types';
+import { TCurrentUser, TUpdateUser } from '../../types';
 import { AxiosError } from 'axios';
 
 export type TSetIsMobileOpen = TActionWithPayload<
@@ -27,10 +27,7 @@ export type TSignInFailed = TActionWithPayload<
 
 export type TUpdateStart = TActionWithPayload<
   typeof USER_ACTION_TYPE.UPDATE_START,
-  {
-    email: string;
-    username: string;
-  }
+  TUpdateUser
 >;
 export type TUpdateSuccess = TActionWithPayload<
   typeof USER_ACTION_TYPE.UPDATE_SUCCESS,
@@ -48,6 +45,7 @@ export type TSignUpStart = TActionWithPayload<
     phone: string;
     password: string;
     username: string;
+    isAdmin: boolean;
   }
 >;
 export type TSignUpSuccess = TActionWithPayload<
@@ -66,7 +64,10 @@ export type TSignOutFailed = TActionWithPayload<
   Error
 >;
 
-export type TDeleteStart = TAction<typeof USER_ACTION_TYPE.DELETE_START>;
+export type TDeleteStart = TActionWithPayload<
+  typeof USER_ACTION_TYPE.DELETE_START,
+  { userId: string }
+>;
 export type TDeleteSuccess = TAction<typeof USER_ACTION_TYPE.DELETE_SUCCESS>;
 export type TDeleteFailed = TActionWithPayload<
   typeof USER_ACTION_TYPE.DELETE_FAILED,
@@ -116,22 +117,21 @@ export const signUpStart = withMatcher(
     email: string,
     phone: string,
     password: string,
-    username: string
+    username: string,
+    isAdmin: boolean
   ): TSignUpStart =>
     createAction(USER_ACTION_TYPE.SIGN_UP_START, {
       email,
       phone,
       password,
       username,
+      isAdmin,
     })
 );
 
 export const updateStart = withMatcher(
-  (email: string, username: string): TUpdateStart =>
-    createAction(USER_ACTION_TYPE.UPDATE_START, {
-      email,
-      username,
-    })
+  (user: TUpdateUser): TUpdateStart =>
+    createAction(USER_ACTION_TYPE.UPDATE_START, user)
 );
 
 export const updateSuccess = withMatcher(
@@ -168,7 +168,8 @@ export const signOutFailed = withMatcher(
 );
 
 export const deleteStart = withMatcher(
-  (): TDeleteStart => createAction(USER_ACTION_TYPE.DELETE_START)
+  (userId: string): TDeleteStart =>
+    createAction(USER_ACTION_TYPE.DELETE_START, { userId })
 );
 
 export const deleteSuccess = withMatcher(

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NewUserContainer = styled.div`
+export const EditUserContainer = styled.div`
   flex: 4;
 
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
@@ -50,7 +50,6 @@ export const NewUserContainer = styled.div`
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     border: none;
-    border-radius: 1rem;
     background-color: var(--highlight);
     color: var(--white);
     font-weight: 600;

@@ -23,17 +23,26 @@ export type TProduct = {
 };
 
 export type TCurrentUser = {
-  _id: string;
+  _id?: string;
   username: string;
   email: string;
   phone: string;
   isAdmin: boolean;
   password?: string;
   passwordChangedAt?: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   accessToken?: string;
   __v?: number;
+};
+
+export type TUpdateUser = {
+  _id?: string;
+  email?: string;
+  username?: string;
+  phone?: string;
+  isAdmin?: boolean;
+  password?: string;
 };
 
 export type TOrder = {

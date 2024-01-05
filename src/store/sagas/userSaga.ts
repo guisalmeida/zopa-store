@@ -19,6 +19,7 @@ import {
   updateFailed,
   fetchUsersFailed,
   fetchUsersSuccess,
+  TDeleteStart,
 } from '../actions/userActions';
 
 import {
@@ -29,7 +30,6 @@ import {
   updateUser,
 } from '../../utils/api';
 import axios, { AxiosError } from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { TCurrentUser } from '../../types';
 
 export function* fetchUsersSaga() {
@@ -71,11 +71,17 @@ export function* onSignInStart() {
 }
 
 export function* signUpSaga({
-  payload: { email, phone, password, username },
+  payload: { email, phone, password, username, isAdmin },
 }: TSignUpStart) {
   try {
-    const res = yield* call(signUpUser, username, email, phone, password);
-    const navigate = useNavigate();
+    const res = yield* call(
+      signUpUser,
+      username,
+      email,
+      phone,
+      password,
+      isAdmin
+    );
 
     if (axios.isAxiosError(res)) {
       yield* put(signUpFailed(res.response?.data as AxiosError));
@@ -94,10 +100,16 @@ export function* onSignUpStart() {
 }
 
 export function* updateUserSaga({
-  payload: { email, username },
+  payload: { _id, username, phone, isAdmin },
 }: TUpdateStart) {
   try {
-    const res = yield* call(updateUser, email, username);
+    const res = yield* call(
+      updateUser,
+      _id as string,
+      username,
+      phone,
+      isAdmin
+    );
     if (axios.isAxiosError(res)) {
       yield* put(updateFailed(res.response?.data as AxiosError));
     } else if (res.data) {
@@ -124,9 +136,9 @@ export function* onSignOutStart() {
   yield* takeLatest('SIGN_OUT_START', signOutSaga);
 }
 
-export function* deleteUserSaga() {
+export function* deleteUserSaga({ payload: { userId } }: TDeleteStart) {
   try {
-    const res = yield* call(deleteUser);
+    const res = yield* call(deleteUser, userId);
     if (axios.isAxiosError(res)) {
       yield* put(signInFailed(res.response?.data as AxiosError));
     } else if (res.data) {

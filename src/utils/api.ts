@@ -1,4 +1,4 @@
-import { TCurrentUser, TOrder, TProduct } from '../types';
+import { TCurrentUser, TOrder, TProduct, TUpdateUser } from '../types';
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from 'axios';
 
 export const BASE_URL = 'https://d1ysyj49rdj569.cloudfront.net/api';
@@ -88,14 +88,18 @@ export const signInUser = async (
 };
 
 export const updateUser = async (
-  email: string,
-  username: string
+  userId: string,
+  username?: string,
+  phone?: string,
+  isAdmin?: boolean
 ): Promise<AxiosResponse<TCurrentUser> | AxiosError> => {
+  const newUser: TUpdateUser = {};
+  username ? (newUser.username = username) : null;
+  phone ? (newUser.phone = phone) : null;
+  isAdmin ? (newUser.isAdmin = isAdmin) : null;
+
   return await userRequest
-    .put(`/users/${currentUser._id}`, {
-      email,
-      username,
-    })
+    .put(`/users/${userId}`, newUser)
     .then((res) => res)
     .catch((error) => error as AxiosError);
 };
@@ -104,7 +108,8 @@ export const signUpUser = async (
   username: string,
   email: string,
   phone: string,
-  password: string
+  password: string,
+  isAdmin: boolean
 ): Promise<AxiosResponse<TCurrentUser> | AxiosError> => {
   return await publicRequest
     .post('/auth/register', {
@@ -112,16 +117,17 @@ export const signUpUser = async (
       email,
       phone,
       password,
+      isAdmin,
     })
     .then((res) => res)
     .catch((error) => error as AxiosError);
 };
 
-export const deleteUser = async (): Promise<
-  AxiosResponse<{ message: string }> | AxiosError
-> => {
+export const deleteUser = async (
+  userId: string
+): Promise<AxiosResponse<{ message: string }> | AxiosError> => {
   return await userRequest
-    .delete(`/users/${currentUser._id}`)
+    .delete(`/users/${userId}`)
     .then((res) => res)
     .catch((error) => error as AxiosError);
 };

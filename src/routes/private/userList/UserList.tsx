@@ -1,49 +1,55 @@
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { toast } from 'react-toastify';
+
+import {
+  selectAllUsers,
+  selectIsLoading,
+} from '../../../store/selectors/userSelectors';
+import { fetchUsersStart } from '../../../store/actions/userActions';
+import { TCurrentUser } from '../../../types';
+import Spinner from '../../../components/client/spinner/spinner';
 
 import { UserListContainer, PersonDeleteIcon } from './styled';
-import { TCurrentUser } from '../../../types';
+import { deleteUser } from '../../../utils/api';
 
 export default function UserList() {
-  const [data, setData] = useState<TCurrentUser[]>([]);
+  const dispatch = useDispatch();
+  const allUsers: TCurrentUser[] = useSelector(selectAllUsers);
+  const isLoading: boolean = useSelector(selectIsLoading);
 
-  const handleDelete = (userId: string) => {
-    setData(data.filter((item) => item._id !== userId));
+  const handleDelete = async (userId: string) => {
+    try {
+      const res = await deleteUser(userId);
+
+      if (res.status === 200) {
+        //@ts-ignore
+        if (res.data) {
+          //@ts-ignore
+          toast.success(res.data.message, {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: true,
+            pauseOnHover: false,
+            draggable: false,
+          });
+        }
+
+        dispatch(fetchUsersStart());
+      }
+    } catch (error) {
+      const err = error as Error;
+      console.log(err);
+      toast.error(err.message, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        pauseOnHover: false,
+        draggable: false,
+      });
+    }
   };
-
-  useEffect(() => {
-    const newData: TCurrentUser[] = [
-      {
-        _id: '657cb1ff35c1160bf62980c4',
-        username: 'deinha123',
-        email: 'deinha123@gmail.com',
-        password:
-          '$2b$08$m5zQEYyA7NIolSxeNrvac.Ko/3awsduCr9T8fBeBg5LfnuMbsiR16',
-        isAdmin: false,
-        phone: '(51)912345678',
-        passwordChangedAt: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        __v: 0,
-      },
-      {
-        _id: '658742b423789299f2467cbc',
-        username: 'guigui1234',
-        email: 'guisalmeida.dev@gmail.com',
-        password:
-          '$2b$08$x8mvCC0A191Qb4CUWk8yHeHEzWZo9vohgSCzVgGjqPSWQgleHBHjO',
-        isAdmin: true,
-        phone: '(51)912345678',
-        passwordChangedAt: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        __v: 0,
-      },
-    ];
-    setData(newData);
-  }, []);
 
   const columns: GridColDef[] = [
     { field: '_id', headerName: 'ID', width: 220 },
@@ -91,14 +97,19 @@ export default function UserList() {
     },
   ];
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <UserListContainer>
       <DataGrid
-        rows={data}
+        rows={allUsers}
         disableRowSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}
-        checkboxSelection
+        initialState={{
+          pagination: { paginationModel: { pageSize: 10 } },
+        }}
+        pageSizeOptions={[10, 50, 100]}
       />
     </UserListContainer>
   );

@@ -105,7 +105,10 @@ export default function ProductList() {
         disableRowSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}
-        checkboxSelection
+        initialState={{
+          pagination: { paginationModel: { pageSize: 10 } },
+        }}
+        pageSizeOptions={[10, 50, 100]}
       />
     </ProductListContainer>
   );
