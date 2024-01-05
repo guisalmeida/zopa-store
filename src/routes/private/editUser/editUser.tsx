@@ -136,7 +136,7 @@ export default function NewUser() {
             placeholder="Insira email..."
             onChange={handleChange}
             required
-            disabled={Boolean(newCurrentUser.email)}
+            disabled={userId !== 'new'}
           />
         </div>
 

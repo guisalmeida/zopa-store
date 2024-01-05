@@ -44,6 +44,10 @@ export const EditUserContainer = styled.div`
     padding: 1rem;
     border: 1px solid var(--border);
     border-radius: 0.5rem;
+
+    &:disabled {
+      background-color: var(--border);
+    }
   }
 
   .edit-user__button {
