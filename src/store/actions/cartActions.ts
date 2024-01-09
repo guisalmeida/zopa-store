@@ -1,6 +1,21 @@
+import { AxiosError } from 'axios';
 import { TOrder, TProduct } from '../../types';
 import { createAction, withMatcher } from '../../utils/actions';
-import { CART_ACTION_TYPE, TActionWithPayload } from './actionTypes';
+import { CART_ACTION_TYPE, TAction, TActionWithPayload } from './actionTypes';
+
+export type TFetchOrdersStart = TAction<
+  typeof CART_ACTION_TYPE.FETCH_ORDERS_START
+>;
+
+export type TFetchOrdersSuccess = TActionWithPayload<
+  typeof CART_ACTION_TYPE.FETCH_ORDERS_SUCCESS,
+  TOrder[]
+>;
+
+export type TFetchOrdersFailed = TActionWithPayload<
+  typeof CART_ACTION_TYPE.FETCH_ORDERS_FAILED,
+  AxiosError
+>;
 
 export type TSetIsCartOpen = TActionWithPayload<
   typeof CART_ACTION_TYPE.SET_IS_CART_OPEN,
@@ -24,6 +39,20 @@ export type TCreateOrderFailed = TActionWithPayload<
   typeof CART_ACTION_TYPE.CREATE_ORDER_FAILED,
   Error
 >;
+
+export const fetchOrdersStart = withMatcher(
+  (): TFetchOrdersStart => createAction(CART_ACTION_TYPE.FETCH_ORDERS_START)
+);
+
+export const fetchOrdersSuccess = withMatcher(
+  (orders: TOrder[]): TFetchOrdersSuccess =>
+    createAction(CART_ACTION_TYPE.FETCH_ORDERS_SUCCESS, orders)
+);
+
+export const fetchOrdersFailed = withMatcher(
+  (error: AxiosError): TFetchOrdersFailed =>
+    createAction(CART_ACTION_TYPE.FETCH_ORDERS_FAILED, error)
+);
 
 export const createOrderStart = withMatcher(
   (order: TOrder): TCreateOrderStart =>

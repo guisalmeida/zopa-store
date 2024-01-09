@@ -1,47 +1,63 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FeaturedContainer } from './styled';
+import { getIncome } from '../../../utils/api';
+import { TIncome } from '../../../types';
+import { priceToStringBr } from '../../../utils/currency';
 
 export default function FeaturedInfo() {
-  const [income, setIncome] = useState([]);
-  const [perc, setPerc] = useState(0);
+  const newDate = new Date();
+  const actualMonth = newDate.getMonth() + 1;
+  const lastMonth =
+    new Date(newDate.setMonth(newDate.getMonth() - 1)).getMonth() + 1;
+  const [actualIncome, setActualIncome] = useState<TIncome['total']>(0);
+  const [lastIncome, setLastIncome] = useState<TIncome['total']>(0);
+
+  useEffect(() => {
+    const getActualIncome = async () => {
+      try {
+        const res = await getIncome();
+        // @ts-ignore
+        if (res.data) {
+          // @ts-ignore
+          const newIncome: TIncome = res.data.find(
+            (income: TIncome) => income._id === actualMonth
+          );
+          // @ts-ignore
+          const lastMonthIncome: TIncome = res.data.find(
+            (income: TIncome) => income._id === lastMonth
+          );
+
+          setActualIncome(newIncome.total);
+          setLastIncome(lastMonthIncome.total);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getActualIncome();
+  }, []);
 
   return (
     <FeaturedContainer>
       <div className="featuredItem">
-        <span className="featuredTitle">Receita</span>
+        <h3 className="featuredTitle">Vendas</h3>
+        <small className="featuredSub">do mês passado</small>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">R$ 1.000,00</span>
-          <span className="featuredMoneyRate">
-            {/* %{Math.floor(perc)}{" "}
-            {perc < 0 ? (
-              // <ArrowDownward className="featuredIcon negative" />
-            ) : (
-              // <ArrowUpward className="featuredIcon" />
-            )} */}
+          <span className="featuredMoney">
+            {priceToStringBr(lastIncome / 100)}
           </span>
         </div>
-        <span className="featuredSub">Em comparação ao mês passado</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Vendas</span>
+        <h3 className="featuredTitle">Vendas</h3>
+        <small className="featuredSub">do mês atual</small>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">R$ 4.415,00</span>
-          <span className="featuredMoneyRate">
-            {/* -1.4 <ArrowDownward className="featuredIcon negative" /> */}
+          <span className="featuredMoney">
+            {priceToStringBr(actualIncome / 100)}
           </span>
         </div>
-        <span className="featuredSub">Em comparação ao mês passado</span>
-      </div>
-      <div className="featuredItem">
-        <span className="featuredTitle">Custos</span>
-        <div className="featuredMoneyContainer">
-          <span className="featuredMoney">R$ 2.225,00</span>
-          <span className="featuredMoneyRate">
-            {/* +2.4 <ArrowUpward className="featuredIcon" /> */}
-          </span>
-        </div>
-        <span className="featuredSub">Em comparação ao mês passado</span>
       </div>
     </FeaturedContainer>
   );

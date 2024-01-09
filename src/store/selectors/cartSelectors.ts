@@ -14,6 +14,11 @@ export const selectIsCartOpen = createSelector(
   (cart) => cart.isCartOpen
 );
 
+export const selectCartOrders = createSelector(
+  [selectCartReducer],
+  (cart) => cart.cartOrders
+);
+
 export const selectCartTotal = createSelector(
   [selectCartProducts],
   (cartProducts) =>

@@ -1,32 +1,29 @@
 import styled from 'styled-components';
 
 export const LatestTransactionsWidgetContainer = styled.div`
-  padding: 2rem;
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  margin: 1rem 0;
+  margin: 1rem 0 2rem;
 
-  .latestTransactionsWidgetTitle {
+  .latest-transactions-widget__title {
     font-size: 22px;
     font-weight: 600;
+    margin-bottom: 1rem;
   }
 
-  .latestTransactionsWidgetTable {
+  .latest-transactions-widget__table {
     width: 100%;
     border-spacing: 20px;
   }
 
-  .latestTransactionsWidgetTh {
+  .latest-transactions-widget__th {
     text-align: left;
   }
 
-  .latestTransactionsWidgetUser {
+  .latest-transactions-widget__User {
     display: flex;
     align-items: center;
-    font-weight: 600;
   }
 
-  .latestTransactionsWidgetImg {
+  .latest-transactions-widget__Img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -34,26 +31,26 @@ export const LatestTransactionsWidgetContainer = styled.div`
     margin-right: 10px;
   }
 
-  .latestTransactionsWidgetDate,
-  .latestTransactionsWidgetAmount {
+  .latest-transactions-widget__Date,
+  .latest-transactions-widget__Amount {
     font-weight: 300;
   }
 
-  .latestTransactionsWidgetButton {
+  .latest-transactions-widget__Button {
     padding: 5px 7px;
     border: none;
     border-radius: 10px;
   }
 
-  .latestTransactionsWidgetButton.approved {
+  .latest-transactions-widget__Button.approved {
     background-color: #e5faf2;
     color: #3bb077;
   }
-  .latestTransactionsWidgetButton.declined {
+  .latest-transactions-widget__Button.declined {
     background-color: #fff0f1;
     color: #d95087;
   }
-  .latestTransactionsWidgetButton.pending {
+  .latest-transactions-widget__Button.pending {
     background-color: #ebf1fe;
     color: #2a7ade;
   }

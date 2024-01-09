@@ -3,6 +3,9 @@ import { TOrder, TProduct } from '../../types';
 import {
   createOrderFailed,
   createOrderSuccess,
+  fetchOrdersFailed,
+  fetchOrdersStart,
+  fetchOrdersSuccess,
   setCartProducts,
   setIsCartOpen,
 } from '../actions/cartActions';
@@ -10,12 +13,14 @@ import {
 export type TCartState = {
   readonly cartProducts: TProduct[];
   readonly cartOrders: TOrder[];
+  readonly isFetching: boolean;
   readonly isCartOpen: boolean;
 };
 
 const INITIAL_STATE: TCartState = {
   cartProducts: [],
   cartOrders: [],
+  isFetching: false,
   isCartOpen: false,
 };
 
@@ -42,6 +47,28 @@ export const cartReducer = (state = INITIAL_STATE, action: AnyAction) => {
     return {
       ...state,
       error: action.payload,
+    };
+  }
+  if (fetchOrdersStart.match(action)) {
+    return {
+      ...state,
+      isFetching: true,
+    };
+  }
+
+  if (fetchOrdersSuccess.match(action)) {
+    return {
+      ...state,
+      cartOrders: action.payload,
+      isFetching: false,
+    };
+  }
+
+  if (fetchOrdersFailed.match(action)) {
+    return {
+      ...state,
+      error: action.payload,
+      isFetching: false,
     };
   }
 

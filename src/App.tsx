@@ -7,6 +7,7 @@ import { checkUserSession, fetchUsersStart } from './store/actions/userActions';
 import Spinner from './components/client/spinner/spinner';
 import AdminRoutes from './utils/adminRoutes';
 import LoggedRoutes from './utils/loggedRoutes';
+import { fetchOrdersStart } from './store/actions/cartActions';
 
 const Home = lazy(() => import('./routes/public/home'));
 const Layout = lazy(() => import('./components/client/layout'));
@@ -38,6 +39,10 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchUsersStart());
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchOrdersStart());
   }, []);
 
   return (

@@ -65,3 +65,9 @@ export type TOrder = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export type TIncome = {
+  _id: number;
+  total: number;
+  createdAt: string;
+};

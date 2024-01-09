@@ -28,8 +28,8 @@ const FeatureWidget = ({
         loop={true}
         spaceBetween={40}
         slidesPerView={2}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => console.log(swiper)}
         pagination={{ clickable: true }}
         navigation={true}
         breakpoints={{

@@ -1,4 +1,4 @@
-import { TCurrentUser, TOrder, TProduct, TUpdateUser } from '../types';
+import { TCurrentUser, TIncome, TOrder, TProduct, TUpdateUser } from '../types';
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from 'axios';
 
 export const BASE_URL = 'https://d1ysyj49rdj569.cloudfront.net/api';
@@ -139,6 +139,24 @@ export const createOrder = async (
     .post(`/orders/${currentUser._id}`, {
       ...order,
     })
+    .then((res) => res)
+    .catch((error) => error as AxiosError);
+};
+
+export const getOrders = async (): Promise<
+  AxiosResponse<TOrder[]> | AxiosError
+> => {
+  return await userRequest
+    .get('/orders')
+    .then((res) => res)
+    .catch((error) => error as AxiosError);
+};
+
+export const getIncome = async (): Promise<
+  AxiosResponse<{ data: TIncome[] }> | AxiosError
+> => {
+  return await userRequest
+    .get('/orders/income')
     .then((res) => res)
     .catch((error) => error as AxiosError);
 };

@@ -1,72 +1,71 @@
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
+import { selectAllUsers } from '../../../store/selectors/userSelectors';
 import { TCurrentUser } from '../../../types';
 
 import { NewClientsWidgetContainer } from './styled';
-import { Link } from 'react-router-dom';
+import { formatDate } from '../../../utils/dates';
 
 export default function NewClientsWidget() {
-  const [users, setUsers] = useState<TCurrentUser[]>([]);
+  const allUsers: TCurrentUser[] = useSelector(selectAllUsers);
 
-  useEffect(() => {
-    const usersData: TCurrentUser[] = [
-      {
-        _id: '657cb1ff35c1160bf62980c4',
-        username: 'deinha123',
-        email: 'deinha123@gmail.com',
-        password:
-          '$2b$08$m5zQEYyA7NIolSxeNrvac.Ko/3awsduCr9T8fBeBg5LfnuMbsiR16',
-        isAdmin: false,
-        phone: '(51)912345678',
-        passwordChangedAt: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        __v: 0,
+  const columns: GridColDef[] = [
+    {
+      field: 'createdAt',
+      headerName: 'Criado em',
+      width: 150,
+      renderCell: (params: { row: { createdAt: string } }) => {
+        return <p>{formatDate(params.row.createdAt as string)}</p>;
       },
-      {
-        _id: '658742b423789299f2467cbc',
-        username: 'guigui1234',
-        email: 'guisalmeida.dev@gmail.com',
-        password:
-          '$2b$08$x8mvCC0A191Qb4CUWk8yHeHEzWZo9vohgSCzVgGjqPSWQgleHBHjO',
-        isAdmin: true,
-        phone: '(51)912345678',
-        passwordChangedAt: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        __v: 0,
+    },
+    {
+      field: 'username',
+      headerName: 'Usuário',
+      width: 200,
+      renderCell: (params: {
+        row: {
+          username: string;
+        };
+      }) => {
+        return (
+          <div className="new-clients-widget__username">
+            {params.row.username}
+          </div>
+        );
       },
-    ];
-    setUsers(usersData);
-  }, []);
+    },
+    { field: 'email', headerName: 'Email', width: 200 },
+    { field: 'isAdmin', headerName: 'Admin', width: 100 },
+    {
+      field: 'show',
+      headerName: 'Mostrar',
+      width: 100,
+      renderCell: (params: { row: { _id: string } }) => {
+        return (
+          <Link to={'/admin/users/' + params.row._id}>
+            <button className="new-clients-widget__button">Mostrar</button>
+          </Link>
+        );
+      },
+    },
+  ];
 
   return (
     <NewClientsWidgetContainer>
-      <span className="newClientsWidgetTitle">Novos clientes</span>
-      <ul className="newClientsWidgetList">
-        {users.map((user) => (
-          <li className="newClientsWidgetListItem" key={user._id}>
-            <img
-              src={
-                'https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif'
-              }
-              alt=""
-              className="newClientsWidgetImg"
-            />
-            <div className="newClientsWidgetUser">
-              <span className="newClientsWidgetUsername">{user.username}</span>
-            </div>
+      <h3 className="new-clients-widget__title">Novos clientes</h3>
 
-            <Link
-              to={`/admin/users/${user._id}`}
-              className="newClientsWidgetButton"
-            >
-              {/* <Visibility className="newClientsWidgetIcon" /> */}
-              Mostrar
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <DataGrid
+        rows={allUsers}
+        disableRowSelectionOnClick
+        columns={columns}
+        getRowId={(row) => row._id}
+        initialState={{
+          pagination: { paginationModel: { pageSize: 10 } },
+        }}
+        pageSizeOptions={[10, 50, 100]}
+      />
     </NewClientsWidgetContainer>
   );
 }

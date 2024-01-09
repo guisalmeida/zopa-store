@@ -1,61 +1,59 @@
 import styled from 'styled-components';
 
 export const NewClientsWidgetContainer = styled.div`
-  padding: 2rem;
-  border: 1px solid var(--border);
-  border-radius: 1rem;
   margin: 0;
 
-  .newClientsWidgetTitle {
+  .new-clients-widget__title {
     font-size: 22px;
     font-weight: 600;
+    margin: 1rem 0;
   }
 
-  .newClientsWidgetImg {
+  .new-clients-widget__Img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
   }
 
-  .newClientsWidgetList {
+  .new-clients-widget__list {
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .newClientsWidgetListItem {
+  .new-clients-widget__list-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin: 20px 0px;
   }
 
-  .newClientsWidgetUser {
+  .new-clients-widget__user {
     display: flex;
     flex-direction: column;
+    margin-right: 1rem;
   }
 
-  .newClientsWidgetUsername {
+  .new-clients-widget__username {
     font-weight: 600;
   }
 
-  .newClientsWidgetUserTitle {
+  .new-clients-widget__userTitle {
     font-weight: 300;
   }
 
-  .newClientsWidgetButton {
+  .new-clients-widget__button {
     display: flex;
     align-items: center;
+    padding: 0.5rem 1rem;
     border: none;
-    border-radius: 10px;
-    padding: 7px 10px;
-    background-color: #eeeef7;
-    color: #555;
+    border-radius: 1rem;
+    background-color: var(--highlight);
+    color: var(--white);
     cursor: pointer;
   }
 
-  .newClientsWidgetIcon {
+  .new-clients-widget__icon {
     font-size: 16px !important;
     margin-right: 5px;
   }

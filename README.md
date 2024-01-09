@@ -24,6 +24,7 @@ https://zopa-clothing.netlify.app/
 - [Redux-thunk](https://github.com/reduxjs/redux-thunk)
 - [Redux-saga](https://redux-saga.js.org/)
 - [Stripe](https://github.com/stripe/react-stripe-js)
+- [Recharts](https://recharts.org/)
 
 ### References
 

@@ -12,7 +12,6 @@ import FeatureWidget from '../../../components/client/featureWidget';
 const Home = (): React.JSX.Element => {
   const products: TProduct[] = useSelector(selectAllProducts);
   const isLoading: boolean = useSelector(selectIsLoading);
-  console.log(products);
 
   return (
     <>
