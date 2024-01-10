@@ -72,12 +72,9 @@ export default function Chart({ title, incomes }: TChartProps) {
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div>
+      <div className="chart__tooltip">
         <p>{label}</p>
-        <p>
-          Total:
-          <span>{payload[0].payload.totalBRL}</span>
-        </p>
+        <p>{payload[0].payload.totalBRL}</p>
       </div>
     );
   }

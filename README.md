@@ -10,12 +10,12 @@ https://zopa-clothing.netlify.app/
 - [x] Feat: Finish user list admin crud;
 - [ ] Fix: localstorage get token;
 - [ ] Fix(admin product page): Register sizes;
-- [ ] Fix: TS-ignore;
+- [ ] Refactor: remove all TS-ignore;
 - [ ] Feat: Create user auth validation when already logged in;
 - [ ] Feat: Create stock quantity and manage with each size;
 - [ ] Feat: Improve admin page mobile;
 - [ ] Feat: Improve user details page;
-- [ ] Test: e2e and accessibility;
+- [ ] Test: e2e and accessibility with POM (page object model) pattern;
 
 ### Tools
 

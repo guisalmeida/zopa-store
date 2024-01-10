@@ -9,6 +9,18 @@ export const ChartContainer = styled.div`
   h3.chart__title {
     margin-bottom: 1rem;
   }
+
+  .chart__tooltip {
+    background-color: var(--highlight);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+
+    p {
+      color: var(--white);
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+    }
+  }
 `;
 
 export const ChartWrapper = styled.div`
