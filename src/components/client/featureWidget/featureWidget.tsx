@@ -19,9 +19,9 @@ const FeatureWidget = ({
 }: TFeatureWidgetProps): React.JSX.Element => {
   return (
     <FeatureWidgetContainer>
-      <h2>Produtos em destaque</h2>
+      <h2>Gorros em promoção</h2>
       <picture>
-        <img src="images/feature_image.jpg" alt="" />
+        <img src="images/feature_image2.jpg" alt="Featured image" />
       </picture>
       <Swiper
         modules={[Navigation, Pagination, A11y]}

@@ -13,16 +13,15 @@ const Home = (): React.JSX.Element => {
   const products: TProduct[] = useSelector(selectAllProducts);
   const isLoading: boolean = useSelector(selectIsLoading);
 
+  const gorros = products.filter((product) =>
+    product.categories.includes('gorros')
+  );
+
   return (
     <>
       <Carousel />
 
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <FeatureWidget products={products} />
-        // <ProductsList products={products} category={''} />
-      )}
+      {isLoading ? <Spinner /> : <FeatureWidget products={gorros} />}
     </>
   );
 };
