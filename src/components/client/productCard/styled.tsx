@@ -47,7 +47,7 @@ export const ProductCardContainer = styled.div`
       position: absolute;
       top: 0;
       right: 0;
-      z-index: 9;
+      z-index: 8;
     }
   }
 
