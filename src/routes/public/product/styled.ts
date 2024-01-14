@@ -117,6 +117,11 @@ export const ProductContainer = styled.div`
         box-shadow: 0 0.2rem 2rem 0 rgba(0, 0, 0, 0.1);
         transition: all ease 0.3s;
 
+        &:disabled {
+          background: var(--grey);
+          cursor: not-allowed;
+        }
+
         @media (hover: hover) {
           &:hover {
             background: var(--grey);
