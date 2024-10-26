@@ -85,6 +85,9 @@ export default function EditProduct() {
     }
 
     setNewProduct((prev: TProduct) => {
+      if (key === 'quantity' && Number(e.target.value) === 0) {
+        prev.inStock = false;
+      }
       return { ...prev, [key]: value };
     });
   };
@@ -365,29 +368,29 @@ export default function EditProduct() {
         </div>
 
         {newProduct?.onSale === true ? (
-          <div className="edit-product__item">
-            <label>Desconto (%)</label>
-            <input
-              name="discount"
-              type="number"
-              placeholder="50"
-              value={newProduct?.discount}
-              onChange={handleChange}
-            />
-          </div>
-        ) : null}
+          <>
+            <div className="edit-product__item">
+              <label>Desconto (%)</label>
+              <input
+                name="discount"
+                type="number"
+                placeholder="50"
+                value={newProduct?.discount}
+                onChange={handleChange}
+              />
+            </div>
 
-        {newProduct?.onSale === true ? (
-          <div className="edit-product__item">
-            <label>Preço antigo</label>
-            <input
-              name="oldPrice"
-              type="number"
-              placeholder="100"
-              value={newProduct?.oldPrice}
-              onChange={handleChange}
-            />
-          </div>
+            <div className="edit-product__item">
+              <label>Preço antigo</label>
+              <input
+                name="oldPrice"
+                type="number"
+                placeholder="100"
+                value={newProduct?.oldPrice}
+                onChange={handleChange}
+              />
+            </div>
+          </>
         ) : null}
 
         <div className="edit-product__item">
