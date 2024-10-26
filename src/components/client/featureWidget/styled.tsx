@@ -6,7 +6,7 @@ export const FeatureWidgetContainer = styled.div`
   grid-template-columns: 1fr 3fr;
   grid-template-rows: 3rem 2fr;
   gap: 1rem;
-  margin: 3rem auto 20rem;
+  margin: 3rem auto;
   width: 100%;
   max-width: var(--break-large);
   background-color: var(--white);
@@ -25,6 +25,8 @@ export const FeatureWidgetContainer = styled.div`
     font-size: 2rem;
     font-weight: bolder;
     margin-left: 2rem;
+    font-family: var(--secondary-font);
+    font-style: italic;
 
     ${media.lessThan('medium')`
       text-align: center;

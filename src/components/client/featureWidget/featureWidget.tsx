@@ -1,27 +1,36 @@
 import { Navigation, Pagination, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useSelector } from 'react-redux';
 
+import ProductCard from '../productCard';
+import { TProduct } from '../../../types';
+import { selectAllProducts } from '../../../store/selectors/productsSelectors';
+import { FeatureWidgetContainer } from './styled';
 import 'swiper/css';
 import 'swiper/css/a11y';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { FeatureWidgetContainer } from './styled';
-import { TProduct } from '../../../types';
-import ProductCard from '../productCard';
-
 type TFeatureWidgetProps = {
-  products: TProduct[];
+  category: string;
+  title: string;
+  imageSrc: string;
 };
 
 const FeatureWidget = ({
-  products,
+  category,
+  title,
+  imageSrc,
 }: TFeatureWidgetProps): React.JSX.Element => {
+  const products: TProduct[] = useSelector(selectAllProducts);
+  const categoryProducts = products.filter((product) =>
+    product.categories.includes(category)
+  );
   return (
     <FeatureWidgetContainer>
-      <h2>Gorros em promoção</h2>
+      <h2>{title}</h2>
       <picture>
-        <img src="images/feature_image2.jpg" alt="Featured image" />
+        <img src={imageSrc} alt="Featured image" />
       </picture>
       <Swiper
         modules={[Navigation, Pagination, A11y]}
@@ -47,7 +56,7 @@ const FeatureWidget = ({
           },
         }}
       >
-        {products.map((product, index) => (
+        {categoryProducts.map((product, index) => (
           <SwiperSlide key={index}>
             <ProductCard product={product} />
           </SwiperSlide>

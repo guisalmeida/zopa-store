@@ -21,6 +21,9 @@ const GlobalStyles = createGlobalStyle`
     --break-medium: 768px;
     --break-large: 1170px;
     --break-huge: 1440px;
+
+    --primary-font: "Noto Sans", sans-serif;
+    --secondary-font: "Merriweather", serif;
     
     font-size: 16px;
     font-synthesis: none;
@@ -28,7 +31,7 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 400;
 }
 
@@ -47,16 +50,15 @@ html input {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: var(--primary-font);
     font-weight: 400;
+    line-height: normal;
 }
 
 body {
-    background-color:var(--light-grey);
-    color:var(--dark);
-    font-family: 'Noto Sans SC', sans-serif;
-    font-weight: 400;
-    min-height: 100%;
+    background-color: var(--light-grey);
+    color: var(--dark);
+    min-height: 100vh;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
 }
