@@ -1,7 +1,7 @@
 import { TCurrentUser, TIncome, TOrder, TProduct, TUpdateUser } from '../types';
 import axios, { AxiosError, AxiosResponse, HttpStatusCode } from 'axios';
 
-export const BASE_URL = 'https://d1ysyj49rdj569.cloudfront.net/api';
+export const BASE_URL = 'https://backend.zopaclothing.shop/api';
 const local = localStorage.getItem('persist:root')
   ? JSON.parse(localStorage.getItem('persist:root') || '')
   : undefined;
