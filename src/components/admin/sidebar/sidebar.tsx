@@ -9,7 +9,7 @@ export default function Sidebar() {
     <SidebarContainer>
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Admin Menu</h3>
+          <h3 className="sidebarTitle">Vendas</h3>
           <ul className="sidebarList">
             <Link to="/admin" className="link">
               <li className={`sidebarListItem ${!params['*'] ? 'active' : ''}`}>

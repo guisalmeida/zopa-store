@@ -54,7 +54,7 @@ export default function NewClientsWidget() {
 
   return (
     <NewClientsWidgetContainer>
-      <h3 className="new-clients-widget__title">Novos clientes</h3>
+      <h3 className="new-clients-widget__title">Novos usuários</h3>
 
       <DataGrid
         rows={allUsers}
